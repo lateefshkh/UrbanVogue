@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ActiveTab, CartItem, WishlistItem } from '../types';
+import React, { useState, useEffect } from "react";
+import { ActiveTab, CartItem, WishlistItem } from "../types";
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -32,8 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
         setIsScrolled(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
       <header
         id="main-app-header"
         className={`sticky top-0 left-0 right-0 w-full z-40 bg-[#fdf8f7] text-[#191715] border-b border-[#cfc4bd]/70 transition-shadow duration-200 ${
-          isScrolled ? 'shadow-sm' : 'shadow-none'
+          isScrolled ? "shadow-sm" : "shadow-none"
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-5 md:px-12 h-20 flex justify-between items-center">
@@ -55,7 +55,9 @@ export const Header: React.FC<HeaderProps> = ({
               className="p-1 text-[#191715] hover:opacity-75 transition-opacity focus:outline-none cursor-pointer"
               aria-label="Open mobile menu"
             >
-              <span className="material-symbols-outlined text-[24px]">menu</span>
+              <span className="material-symbols-outlined text-[24px]">
+                menu
+              </span>
             </button>
           </div>
 
@@ -63,23 +65,23 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             id="brand-logo-btn"
             onClick={() => {
-              setActiveTab('home');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveTab("home");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="text-2xl md:text-3xl font-serif font-bold tracking-tighter text-[#191715] hover:opacity-85 transition-opacity text-left cursor-pointer"
           >
-            Urban Vogue
+            Danish Vogue
           </button>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 text-[13px] uppercase tracking-wider font-medium">
             <button
               id="nav-home-btn"
-              onClick={() => setActiveTab('home')}
+              onClick={() => setActiveTab("home")}
               className={`transition-all pb-1 cursor-pointer ${
-                activeTab === 'home'
-                  ? 'border-b-2 border-[#191715] text-[#191715] font-semibold'
-                  : 'text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent'
+                activeTab === "home"
+                  ? "border-b-2 border-[#191715] text-[#191715] font-semibold"
+                  : "text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent"
               }`}
             >
               Home
@@ -87,11 +89,11 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               id="nav-shop-btn"
-              onClick={() => setActiveTab('shop')}
+              onClick={() => setActiveTab("shop")}
               className={`transition-all pb-1 cursor-pointer ${
-                activeTab === 'shop'
-                  ? 'border-b-2 border-[#191715] text-[#191715] font-semibold'
-                  : 'text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent'
+                activeTab === "shop"
+                  ? "border-b-2 border-[#191715] text-[#191715] font-semibold"
+                  : "text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent"
               }`}
             >
               Shop
@@ -99,11 +101,11 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               id="nav-clothing-btn"
-              onClick={() => setActiveTab('clothing')}
+              onClick={() => setActiveTab("clothing")}
               className={`transition-all pb-1 cursor-pointer ${
-                activeTab === 'clothing'
-                  ? 'border-b-2 border-[#191715] text-[#191715] font-semibold'
-                  : 'text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent'
+                activeTab === "clothing"
+                  ? "border-b-2 border-[#191715] text-[#191715] font-semibold"
+                  : "text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent"
               }`}
             >
               Clothing
@@ -111,11 +113,11 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               id="nav-footwear-btn"
-              onClick={() => setActiveTab('footwear')}
+              onClick={() => setActiveTab("footwear")}
               className={`transition-all pb-1 cursor-pointer ${
-                activeTab === 'footwear'
-                  ? 'border-b-2 border-[#191715] text-[#191715] font-semibold'
-                  : 'text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent'
+                activeTab === "footwear"
+                  ? "border-b-2 border-[#191715] text-[#191715] font-semibold"
+                  : "text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent"
               }`}
             >
               Footwear
@@ -123,11 +125,11 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               id="nav-accessories-btn"
-              onClick={() => setActiveTab('accessories')}
+              onClick={() => setActiveTab("accessories")}
               className={`transition-all pb-1 cursor-pointer ${
-                activeTab === 'accessories'
-                  ? 'border-b-2 border-[#191715] text-[#191715] font-semibold'
-                  : 'text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent'
+                activeTab === "accessories"
+                  ? "border-b-2 border-[#191715] text-[#191715] font-semibold"
+                  : "text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent"
               }`}
             >
               Accessories
@@ -135,11 +137,11 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               id="nav-lookbook-btn"
-              onClick={() => setActiveTab('lookbook')}
+              onClick={() => setActiveTab("lookbook")}
               className={`transition-all pb-1 cursor-pointer ${
-                activeTab === 'lookbook'
-                  ? 'border-b-2 border-[#191715] text-[#191715] font-semibold'
-                  : 'text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent'
+                activeTab === "lookbook"
+                  ? "border-b-2 border-[#191715] text-[#191715] font-semibold"
+                  : "text-[#5d5651] hover:text-[#191715] border-b-2 border-transparent"
               }`}
             >
               Lookbook
@@ -147,11 +149,11 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               id="nav-sale-btn"
-              onClick={() => setActiveTab('sale')}
+              onClick={() => setActiveTab("sale")}
               className={`transition-all pb-1 cursor-pointer ${
-                activeTab === 'sale'
-                  ? 'border-b-2 border-[#ba1a1a] text-[#ba1a1a] font-semibold'
-                  : 'text-[#ba1a1a]/85 hover:text-[#ba1a1a] border-b-2 border-transparent font-medium'
+                activeTab === "sale"
+                  ? "border-b-2 border-[#ba1a1a] text-[#ba1a1a] font-semibold"
+                  : "text-[#ba1a1a]/85 hover:text-[#ba1a1a] border-b-2 border-transparent font-medium"
               }`}
             >
               Sale
@@ -166,7 +168,9 @@ export const Header: React.FC<HeaderProps> = ({
               className="p-1 text-[#191715] hover:opacity-70 transition-opacity cursor-pointer flex items-center justify-center relative"
               aria-label="Search collection"
             >
-              <span className="material-symbols-outlined text-[22px]">search</span>
+              <span className="material-symbols-outlined text-[22px]">
+                search
+              </span>
             </button>
 
             <button
@@ -175,7 +179,9 @@ export const Header: React.FC<HeaderProps> = ({
               className="p-1 text-[#191715] hover:opacity-70 transition-opacity cursor-pointer relative flex items-center justify-center"
               aria-label="View wishlist"
             >
-              <span className="material-symbols-outlined text-[22px]">favorite</span>
+              <span className="material-symbols-outlined text-[22px]">
+                favorite
+              </span>
               {wishlist.length > 0 && (
                 <span className="absolute -top-1 -right-1 bg-[#ba1a1a] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {wishlist.length}
@@ -189,7 +195,9 @@ export const Header: React.FC<HeaderProps> = ({
               className="p-1 text-[#191715] hover:opacity-70 transition-opacity cursor-pointer relative flex items-center justify-center"
               aria-label="View shopping bag"
             >
-              <span className="material-symbols-outlined text-[22px]">shopping_bag</span>
+              <span className="material-symbols-outlined text-[22px]">
+                shopping_bag
+              </span>
               {totalCartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-[#191715] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-[#fdf8f7]">
                   {totalCartCount}
@@ -212,7 +220,9 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Drawer Menu */}
           <div className="relative w-72 max-w-[80vw] bg-[#fdf8f7] text-[#191715] h-full shadow-2xl flex flex-col z-10 border-r border-[#cfc4bd]">
             <div className="p-6 border-b border-[#cfc4bd]/40 flex justify-between items-center">
-              <span className="text-xl font-serif font-bold tracking-tight">Urban Vogue</span>
+              <span className="text-xl font-serif font-bold tracking-tight">
+                Danish Vogue
+              </span>
               <button
                 id="close-mobile-drawer-btn"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -224,28 +234,30 @@ export const Header: React.FC<HeaderProps> = ({
 
             <nav className="flex flex-col p-4 gap-1 text-[15px]">
               {[
-                { id: 'home', label: 'Home', icon: 'home' },
-                { id: 'shop', label: 'Shop', icon: 'shopping_basket' },
-                { id: 'clothing', label: 'Clothing', icon: 'apparel' },
-                { id: 'footwear', label: 'Footwear', icon: 'straighten' },
-                { id: 'accessories', label: 'Accessories', icon: 'watch' },
-                { id: 'lookbook', label: 'Lookbook', icon: 'menu_book' },
-                { id: 'sale', label: 'Sale', icon: 'sell' }
+                { id: "home", label: "Home", icon: "home" },
+                { id: "shop", label: "Shop", icon: "shopping_basket" },
+                { id: "clothing", label: "Clothing", icon: "apparel" },
+                { id: "footwear", label: "Footwear", icon: "straighten" },
+                { id: "accessories", label: "Accessories", icon: "watch" },
+                { id: "lookbook", label: "Lookbook", icon: "menu_book" },
+                { id: "sale", label: "Sale", icon: "sell" },
               ].map((item) => (
                 <button
                   key={item.id}
                   onClick={() => {
                     setActiveTab(item.id as ActiveTab);
                     setIsMobileMenuOpen(false);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   className={`flex items-center gap-3 px-4 py-3 rounded-sm text-left transition-colors ${
                     activeTab === item.id
-                      ? 'bg-[#eae1da] text-[#191715] font-medium'
-                      : 'text-[#4c4540] hover:bg-[#f1edec]'
+                      ? "bg-[#eae1da] text-[#191715] font-medium"
+                      : "text-[#4c4540] hover:bg-[#f1edec]"
                   }`}
                 >
-                  <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+                  <span className="material-symbols-outlined text-[20px]">
+                    {item.icon}
+                  </span>
                   {item.label}
                 </button>
               ))}
@@ -253,7 +265,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <div className="mt-auto p-6 border-t border-[#cfc4bd]/40 text-xs text-[#69635e]">
               <p className="font-serif italic mb-1">AUTUMN / WINTER 2026</p>
-              <p>© 2026 Urban Vogue Editorial</p>
+              <p>© 2026 Danish Vogue Editorial</p>
             </div>
           </div>
         </div>

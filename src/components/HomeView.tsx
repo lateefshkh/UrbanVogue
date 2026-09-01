@@ -1,5 +1,5 @@
-import React from 'react';
-import { Product, ActiveTab } from '../types';
+import React from "react";
+import { Product, ActiveTab } from "../types";
 
 interface HomeViewProps {
   onSelectProduct: (productId: string) => void;
@@ -18,41 +18,47 @@ export const HomeView: React.FC<HomeViewProps> = ({
 }) => {
   const essentials = [
     {
-      id: 'casual-wear',
-      name: 'Casual Wear',
-      category: 'clothing',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCLwNt-JUqEiQBgOyYKRwISaq1vldmJmPrNklrshhkhtclV4Upsgc7AaUT5ZqVei6_ASy12ZqkG0uxqv_tgRKqXTcLtold7q__nRp1tMwC113L55DEKm6vWhKTieaYyx0FcIthWi1_9ddfhBin6ZqrnWzc5mTYkiR8Dn_ylYdd3n0GWYx2UO3C8VkgOsh1jdKi1wGM6jV-paY6FlKH4FvKLwZm8wlwHLqyaHpaQy7TKeB5A9E1EXtOX'
+      id: "casual-wear",
+      name: "Casual Wear",
+      category: "clothing",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuCLwNt-JUqEiQBgOyYKRwISaq1vldmJmPrNklrshhkhtclV4Upsgc7AaUT5ZqVei6_ASy12ZqkG0uxqv_tgRKqXTcLtold7q__nRp1tMwC113L55DEKm6vWhKTieaYyx0FcIthWi1_9ddfhBin6ZqrnWzc5mTYkiR8Dn_ylYdd3n0GWYx2UO3C8VkgOsh1jdKi1wGM6jV-paY6FlKH4FvKLwZm8wlwHLqyaHpaQy7TKeB5A9E1EXtOX",
     },
     {
-      id: 'formal-wear',
-      name: 'Formal Wear',
-      category: 'clothing',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBSpEOuLX7HYB4g013tWaLsN5U-W_t3fgg54QtYpirntkdAN2ONpfvPqXHVSRMxXI7zDnv_1EKWWHzQmrGMFb3jLMLB1fG2ydZxVk6hB6soQhaBhKaxW8Q1hc6g4FT3UW_dVzzgTHxEsvVKNHyrdTdw77iswaIn6wvK1CgC56L58mfknew3-lOBEbdZRAGbZztkjPFasYUCNU2Ek9ZxWelQyH4CaQCjsaCqwdxk5wezAi6Hd54fSnk-'
+      id: "formal-wear",
+      name: "Formal Wear",
+      category: "clothing",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuBSpEOuLX7HYB4g013tWaLsN5U-W_t3fgg54QtYpirntkdAN2ONpfvPqXHVSRMxXI7zDnv_1EKWWHzQmrGMFb3jLMLB1fG2ydZxVk6hB6soQhaBhKaxW8Q1hc6g4FT3UW_dVzzgTHxEsvVKNHyrdTdw77iswaIn6wvK1CgC56L58mfknew3-lOBEbdZRAGbZztkjPFasYUCNU2Ek9ZxWelQyH4CaQCjsaCqwdxk5wezAi6Hd54fSnk-",
     },
     {
-      id: 'street-style',
-      name: 'Street Style',
-      category: 'outerwear',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBj2A-uVo6yu5uFRIfIDuEzryaS-COHX_pXgDQpsaihJHDBBVvijV04feZ3S0Jvdi_F52K2DBldk2qV4K_amZxdKjyT7DImhTwBHoCP77NilZRgQmt6jbyrTVu2lU75NQqZGS1TEze_DwYU4WLsjwWoiOi4wigekDBhcC_lZbz6A9i_CLOLIrRfWf2g92z4G_Poy3q9vA9Rt0DGXiO4N5RFfx6aKn4PMjTGLX4dpFwjKM4D77o1XveC'
+      id: "street-style",
+      name: "Street Style",
+      category: "outerwear",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuBj2A-uVo6yu5uFRIfIDuEzryaS-COHX_pXgDQpsaihJHDBBVvijV04feZ3S0Jvdi_F52K2DBldk2qV4K_amZxdKjyT7DImhTwBHoCP77NilZRgQmt6jbyrTVu2lU75NQqZGS1TEze_DwYU4WLsjwWoiOi4wigekDBhcC_lZbz6A9i_CLOLIrRfWf2g92z4G_Poy3q9vA9Rt0DGXiO4N5RFfx6aKn4PMjTGLX4dpFwjKM4D77o1XveC",
     },
     {
-      id: 'outerwear-cat',
-      name: 'Outerwear',
-      category: 'outerwear',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCrqRpn5adGx8quwceBjFFHRddLDquUwQrWmylKu1z-8HhbaBSQWgovwFq6wD947YGr5DG_81BGeoU8FiW-jkmhh9zgEWhhzlfctSC8NRSH8aaSRkM9AznDPwqavFD6R6PjATHGwtYX-YNGvY8PYAPS2IpudRvD9CDcGAYQ4JZWc6ew4aW7UpxURaOAX71YbpqLGX5wND0Kz4E3312It6xOIis2icXFps3LmIeqqItUOTmTDr1A-vpl'
+      id: "outerwear-cat",
+      name: "Outerwear",
+      category: "outerwear",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuCrqRpn5adGx8quwceBjFFHRddLDquUwQrWmylKu1z-8HhbaBSQWgovwFq6wD947YGr5DG_81BGeoU8FiW-jkmhh9zgEWhhzlfctSC8NRSH8aaSRkM9AznDPwqavFD6R6PjATHGwtYX-YNGvY8PYAPS2IpudRvD9CDcGAYQ4JZWc6ew4aW7UpxURaOAX71YbpqLGX5wND0Kz4E3312It6xOIis2icXFps3LmIeqqItUOTmTDr1A-vpl",
     },
     {
-      id: 'footwear-cat',
-      name: 'Footwear',
-      category: 'footwear',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBmiTj7I_Hd95nRgxhzUi7UkmOVVBKxDWUKwmki2qO0LQuP__1LTNeLVP5grd0Kj9KSS6iLDxf1wYE5WzuIbdO_D914LEqB5xAlOEJeQByyozxHRTfIF3YaHGGDDPKwLD9mXTgZ82dMXb5F3oUfIqgCKtfjYpct3eYC97Z63XqRH4dh97dSESnMo2CzTs6pjxtSLQ-xd7nMAX4e_DA1q-E-ugbUdfO8oCIuSvHlRtwUlDwx8soOoo2G'
+      id: "footwear-cat",
+      name: "Footwear",
+      category: "footwear",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuBmiTj7I_Hd95nRgxhzUi7UkmOVVBKxDWUKwmki2qO0LQuP__1LTNeLVP5grd0Kj9KSS6iLDxf1wYE5WzuIbdO_D914LEqB5xAlOEJeQByyozxHRTfIF3YaHGGDDPKwLD9mXTgZ82dMXb5F3oUfIqgCKtfjYpct3eYC97Z63XqRH4dh97dSESnMo2CzTs6pjxtSLQ-xd7nMAX4e_DA1q-E-ugbUdfO8oCIuSvHlRtwUlDwx8soOoo2G",
     },
     {
-      id: 'accessories-cat',
-      name: 'Accessories',
-      category: 'accessories',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC8pvWpVATTjLV_h5E2WgsaMmpG6zqRg5FitWQ57greFhrQNSkkZeFP4Sk1F7DLDkrmP8PBtkT16sTXSuuTbxMs7XMAXudKnepLbrO9AfxxpUkOeDO9CCrJIJ_vu6u1NryzU9-oFWa2W4uZ7THxnDx_XAAXa0DxGkuHchTZ22L_FsbsxZxNohl-zza5U1A4vkwloQAeT4AHWCIW96-3MxhwJBW5p82fpp5MtP2z1VVqTj0SW0v4AGsE'
-    }
+      id: "accessories-cat",
+      name: "Accessories",
+      category: "accessories",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuC8pvWpVATTjLV_h5E2WgsaMmpG6zqRg5FitWQ57greFhrQNSkkZeFP4Sk1F7DLDkrmP8PBtkT16sTXSuuTbxMs7XMAXudKnepLbrO9AfxxpUkOeDO9CCrJIJ_vu6u1NryzU9-oFWa2W4uZ7THxnDx_XAAXa0DxGkuHchTZ22L_FsbsxZxNohl-zza5U1A4vkwloQAeT4AHWCIW96-3MxhwJBW5p82fpp5MtP2z1VVqTj0SW0v4AGsE",
+    },
   ];
 
   return (
@@ -62,8 +68,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
         {/* Hero Background Image with Subtle Parallax */}
         <div className="absolute inset-0 w-full h-full">
           <img
-            src="https://lh3.googleusercontent.com/aida/AEtjO1UMKOofGYB19wGRcLMcWS3h1kJ5S1UbtCR4-02csFmDzGdLURKEdFnD2FZjJZCcpIZFBfCanJmf-fYnwC3DB-kMEKwKCg3_LxWSLGY6WUpn1p-tvZmVkM5b9t-Xze1B8gsGnVcY-ZjhVQgb-sp9jJo1DPhzDAa-GfxUDl6cal2_s2QlBFA97yluZzkfiFn3IO3d21jnclo__ELPhkpiAoqBeftUmOqnonUIzWbt_lXtEeJEEFZxOmAS1kQ"
-            alt="Urban Vogue Modern Menswear"
+            src="/homepage/homepage1.jpg"
+            alt="Danish Vogue Modern Menswear"
             className="w-full h-full object-cover object-center scale-100 filter brightness-95"
           />
           {/* Subtle Warm Overlay */}
@@ -77,7 +83,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
               AUTUMN / WINTER 2026
             </p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-normal leading-[1.1] mb-6 text-white drop-shadow-md">
-              Define<br />Your Style
+              Define
+              <br />
+              Your Style
             </h1>
             <p className="text-base sm:text-lg md:text-xl font-normal text-white/90 mb-8 max-w-md drop-shadow-sm font-sans">
               Modern Menswear for Every Occasion
@@ -86,8 +94,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <button
                 id="hero-shop-now-btn"
                 onClick={() => {
-                  setActiveTab('shop');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setActiveTab("shop");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="bg-[#f1edec] text-[#191715] px-8 py-3.5 border border-[#cfc4bd] text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-white transition-all shadow-sm cursor-pointer rounded-xs"
               >
@@ -96,8 +104,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <button
                 id="hero-new-arrivals-btn"
                 onClick={() => {
-                  setActiveTab('lookbook');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setActiveTab("lookbook");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="bg-transparent text-white px-8 py-3.5 border border-white/60 text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-white/15 backdrop-blur-xs transition-all cursor-pointer rounded-xs"
               >
@@ -126,8 +134,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
               key={item.id}
               onClick={() => {
                 onFilterByCategory(item.category);
-                setActiveTab('shop');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setActiveTab("shop");
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               className="group relative flex-none w-[260px] sm:w-[280px] aspect-[3/4] snap-start cursor-pointer overflow-hidden rounded-xs bg-[#f7f3f2] shadow-xs border border-[#cfc4bd]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
             >
@@ -150,18 +158,21 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="flex flex-col md:flex-row bg-[#eae1da] rounded-xs overflow-hidden border border-[#cfc4bd]/60">
           {/* Left Text Block */}
           <div className="w-full md:w-1/2 p-10 sm:p-14 md:p-18 flex flex-col justify-center items-start border-b md:border-b-0 md:border-r border-[#cfc4bd]/40">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#69635e] mb-3 font-semibold">Seasonal Privilege</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[#69635e] mb-3 font-semibold">
+              Seasonal Privilege
+            </p>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#191715] mb-6 max-w-md leading-tight">
               Autumn Collection – Up to 30% OFF
             </h3>
             <p className="text-[14px] text-[#635d58] mb-8 max-w-md leading-relaxed">
-              Curated layering pieces designed with tactile Italian fabrics, relaxed drape, and enduring construction.
+              Curated layering pieces designed with tactile Italian fabrics,
+              relaxed drape, and enduring construction.
             </p>
             <button
               id="autumn-collection-shop-btn"
               onClick={() => {
-                setActiveTab('sale');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setActiveTab("sale");
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               className="bg-[#625d5b] text-white px-8 py-3.5 rounded-xs text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-[#191715] transition-colors shadow-xs cursor-pointer"
             >
@@ -185,13 +196,17 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <section className="w-full max-w-[1440px] mx-auto px-5 md:px-16 mb-24">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#69635e] mb-2 font-semibold">Capsule Focus</p>
-            <h2 className="text-3xl font-serif text-[#191715]">Featured Editor's Picks</h2>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[#69635e] mb-2 font-semibold">
+              Capsule Focus
+            </p>
+            <h2 className="text-3xl font-serif text-[#191715]">
+              Featured Editor's Picks
+            </h2>
           </div>
           <button
             onClick={() => {
-              setActiveTab('shop');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveTab("shop");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="mt-4 md:mt-0 text-[12px] uppercase tracking-[0.1em] text-[#191715] border-b border-[#191715] pb-1 hover:text-[#625d5b] transition-colors cursor-pointer"
           >
@@ -240,11 +255,19 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 {product.name}
               </h3>
               <div className="flex items-center gap-2 text-[14px]">
-                <span className={product.isSale ? 'text-[#ba1a1a] font-medium' : 'text-[#4c4540]'}>
+                <span
+                  className={
+                    product.isSale
+                      ? "text-[#ba1a1a] font-medium"
+                      : "text-[#4c4540]"
+                  }
+                >
                   ${product.price}
                 </span>
                 {product.originalPrice && (
-                  <span className="text-[#7e756f] line-through text-[12px]">${product.originalPrice}</span>
+                  <span className="text-[#7e756f] line-through text-[12px]">
+                    ${product.originalPrice}
+                  </span>
                 )}
               </div>
             </div>

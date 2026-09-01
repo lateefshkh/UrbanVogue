@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface PolicyModalProps {
   title: string | null;
@@ -10,64 +10,82 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ title, onClose }) => {
 
   const getContent = () => {
     switch (title) {
-      case 'Privacy Policy':
+      case "Privacy Policy":
         return (
           <div className="space-y-4 text-xs text-[#4c4540] leading-relaxed">
             <p>
-              Urban Vogue is committed to safeguarding personal data. We collect order processing details, preference indicators, and telemetry solely to enhance your bespoke shopping experience.
+              Danish Vogue is committed to safeguarding personal data. We
+              collect order processing details, preference indicators, and
+              telemetry solely to enhance your bespoke shopping experience.
             </p>
             <p>
-              We do not sell personal information to third parties. All transactional records are encrypted using 256-bit TLS protocols.
+              We do not sell personal information to third parties. All
+              transactional records are encrypted using 256-bit TLS protocols.
             </p>
             <p>
-              For inquiries regarding data erasure or account preferences, contact our concierge at privacy@urbanvogue-editorial.com.
+              For inquiries regarding data erasure or account preferences,
+              contact our concierge at privacy@urbanvogue-editorial.com.
             </p>
           </div>
         );
-      case 'Terms of Service':
+      case "Terms of Service":
         return (
           <div className="space-y-4 text-xs text-[#4c4540] leading-relaxed">
             <p>
-              All garments, lookbook imagery, editorial copy, and typography displayed on Urban Vogue are proprietary and protected under international copyright conventions.
+              All garments, lookbook imagery, editorial copy, and typography
+              displayed on Danish Vogue are proprietary and protected under
+              international copyright conventions.
             </p>
             <p>
-              Prices are denominated in USD and subject to seasonal inventory adjustments. Orders are confirmed upon dispatch verification.
+              Prices are denominated in USD and subject to seasonal inventory
+              adjustments. Orders are confirmed upon dispatch verification.
             </p>
           </div>
         );
-      case 'Shipping & Returns':
+      case "Shipping & Returns":
         return (
           <div className="space-y-4 text-xs text-[#4c4540] leading-relaxed">
             <p>
-              <strong>Complimentary Shipping:</strong> Orders over $150 qualify for carbon-neutral express courier shipping worldwide.
+              <strong>Complimentary Shipping:</strong> Orders over $150 qualify
+              for carbon-neutral express courier shipping worldwide.
             </p>
             <p>
-              <strong>Tailoring Care:</strong> All tailored suits, overcoats, and leather goods arrive in breathable garment bags with bespoke cedar hangers.
+              <strong>Tailoring Care:</strong> All tailored suits, overcoats,
+              and leather goods arrive in breathable garment bags with bespoke
+              cedar hangers.
             </p>
             <p>
-              <strong>30-Day Returns:</strong> Items may be returned within 30 days of delivery in pristine condition with security tags intact.
+              <strong>30-Day Returns:</strong> Items may be returned within 30
+              days of delivery in pristine condition with security tags intact.
             </p>
           </div>
         );
-      case 'Contact Us':
+      case "Contact Us":
         return (
           <div className="space-y-4 text-xs text-[#4c4540] leading-relaxed">
             <p>
-              <strong>Client Concierge:</strong> Monday – Saturday, 8:00 AM – 8:00 PM EST.
+              <strong>Client Concierge:</strong> Monday – Saturday, 8:00 AM –
+              8:00 PM EST.
             </p>
             <p>
               <strong>Direct Line:</strong> +1 (800) 842-8926
             </p>
             <p>
-              <strong>Editorial Inquiries:</strong> concierge@urbanvogue-editorial.com
+              <strong>Editorial Inquiries:</strong>{" "}
+              concierge@urbanvogue-editorial.com
             </p>
             <p>
-              <strong>Flagship Showroom:</strong> 450 Madison Avenue, New York, NY 10022
+              <strong>Flagship Showroom:</strong> 450 Madison Avenue, New York,
+              NY 10022
             </p>
           </div>
         );
       default:
-        return <p className="text-xs text-[#4c4540]">Information currently unavailable.</p>;
+        return (
+          <p className="text-xs text-[#4c4540]">
+            Information currently unavailable.
+          </p>
+        );
     }
   };
 

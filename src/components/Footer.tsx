@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { ActiveTab } from '../types';
+import React, { useState } from "react";
+import { ActiveTab } from "../types";
 
 interface FooterProps {
   setActiveTab: (tab: ActiveTab) => void;
   onOpenPolicyModal?: (title: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal }) => {
-  const [email, setEmail] = useState('');
+export const Footer: React.FC<FooterProps> = ({
+  setActiveTab,
+  onOpenPolicyModal,
+}) => {
+  const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
   const handleSubscribe = (e: React.FormEvent) => {
@@ -16,20 +19,28 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
       setSubscribed(true);
       setTimeout(() => {
         setSubscribed(false);
-        setEmail('');
+        setEmail("");
       }, 4000);
     }
   };
 
   return (
-    <footer id="app-footer" className="w-full bg-[#191715] text-[#ffffff] border-t border-[#7e756f]/30 mt-24 pt-20 pb-16 px-5 md:px-12">
+    <footer
+      id="app-footer"
+      className="w-full bg-[#191715] text-[#ffffff] border-t border-[#7e756f]/30 mt-24 pt-20 pb-16 px-5 md:px-12"
+    >
       <div className="max-w-[1440px] mx-auto flex flex-col items-center text-center">
         {/* Newsletter Signup in editorial style */}
         <div className="max-w-md w-full mb-16 px-4">
-          <p className="text-[12px] uppercase tracking-[0.2em] text-[#97928f] mb-3 font-medium">The Editorial Journal</p>
-          <h4 className="text-2xl font-serif mb-3 text-white">Receive Seasonal Invitations</h4>
+          <p className="text-[12px] uppercase tracking-[0.2em] text-[#97928f] mb-3 font-medium">
+            The Editorial Journal
+          </p>
+          <h4 className="text-2xl font-serif mb-3 text-white">
+            Receive Seasonal Invitations
+          </h4>
           <p className="text-[14px] text-[#97928f] mb-6">
-            Subscribers receive private early access to lookbooks, capsule drops, and bespoke editorial previews.
+            Subscribers receive private early access to lookbooks, capsule
+            drops, and bespoke editorial previews.
           </p>
 
           {subscribed ? (
@@ -60,20 +71,20 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
         <button
           id="footer-brand-title"
           onClick={() => {
-            setActiveTab('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setActiveTab("home");
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           className="text-3xl md:text-4xl font-serif font-bold tracking-tighter text-white hover:opacity-90 transition-opacity mb-8 cursor-pointer"
         >
-          Urban Vogue
+          Danish Vogue
         </button>
 
         {/* Primary Category Links */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-[12px] uppercase tracking-widest text-[#d8cec6] font-medium mb-8">
           <button
             onClick={() => {
-              setActiveTab('shop');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveTab("shop");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="hover:text-white transition-colors cursor-pointer"
           >
@@ -81,8 +92,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
           </button>
           <button
             onClick={() => {
-              setActiveTab('clothing');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveTab("clothing");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="hover:text-white transition-colors cursor-pointer"
           >
@@ -90,8 +101,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
           </button>
           <button
             onClick={() => {
-              setActiveTab('footwear');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveTab("footwear");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="hover:text-white transition-colors cursor-pointer"
           >
@@ -99,8 +110,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
           </button>
           <button
             onClick={() => {
-              setActiveTab('accessories');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveTab("accessories");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="hover:text-white transition-colors cursor-pointer"
           >
@@ -108,8 +119,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
           </button>
           <button
             onClick={() => {
-              setActiveTab('lookbook');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveTab("lookbook");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="hover:text-white transition-colors cursor-pointer"
           >
@@ -117,8 +128,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
           </button>
           <button
             onClick={() => {
-              setActiveTab('sale');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveTab("sale");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="text-[#ba1a1a] hover:text-red-400 transition-colors cursor-pointer font-bold"
           >
@@ -129,25 +140,41 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
         {/* Legal and Support Links */}
         <nav className="flex flex-wrap justify-center gap-6 md:gap-10 text-[13px] text-[#97928f] mb-10 tracking-wide">
           <button
-            onClick={() => onOpenPolicyModal ? onOpenPolicyModal('Privacy Policy') : setActiveTab('home')}
+            onClick={() =>
+              onOpenPolicyModal
+                ? onOpenPolicyModal("Privacy Policy")
+                : setActiveTab("home")
+            }
             className="hover:text-white transition-colors cursor-pointer"
           >
             Privacy Policy
           </button>
           <button
-            onClick={() => onOpenPolicyModal ? onOpenPolicyModal('Terms of Service') : setActiveTab('home')}
+            onClick={() =>
+              onOpenPolicyModal
+                ? onOpenPolicyModal("Terms of Service")
+                : setActiveTab("home")
+            }
             className="hover:text-white transition-colors cursor-pointer"
           >
             Terms of Service
           </button>
           <button
-            onClick={() => onOpenPolicyModal ? onOpenPolicyModal('Shipping & Returns') : setActiveTab('home')}
+            onClick={() =>
+              onOpenPolicyModal
+                ? onOpenPolicyModal("Shipping & Returns")
+                : setActiveTab("home")
+            }
             className="hover:text-white transition-colors cursor-pointer"
           >
             Shipping & Returns
           </button>
           <button
-            onClick={() => onOpenPolicyModal ? onOpenPolicyModal('Contact Us') : setActiveTab('home')}
+            onClick={() =>
+              onOpenPolicyModal
+                ? onOpenPolicyModal("Contact Us")
+                : setActiveTab("home")
+            }
             className="hover:text-white transition-colors cursor-pointer"
           >
             Contact Us
@@ -156,7 +183,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenPolicyModal 
 
         {/* Copyright */}
         <p className="text-[11px] tracking-[0.15em] text-[#97928f]/60 uppercase">
-          © 2026 URBAN VOGUE EDITORIAL. ALL RIGHTS RESERVED.
+          © 2026 Danish Vogue EDITORIAL. ALL RIGHTS RESERVED.
         </p>
       </div>
     </footer>
