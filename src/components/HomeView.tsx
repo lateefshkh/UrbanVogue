@@ -128,7 +128,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                     setActiveTab("shop");
                   }
                 }}
-                className="bg-[#ffffff] text-[#191715] px-8 py-3.5 border border-white text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-[#eae1da] transition-all duration-300 shadow-sm cursor-pointer rounded-xs luxury-card"
+                className="bg-white text-[#191715] px-8 py-3.5 text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-[#eae1da] transition-all duration-300 cursor-pointer rounded-xs"
               >
                 Explore Collection
               </button>

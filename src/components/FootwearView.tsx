@@ -238,86 +238,95 @@ export const FootwearView: React.FC<FootwearViewProps> = ({
           {filteredProducts.map((product) => {
             const isSaved = isWishlisted(product.id);
             return (
-              <div key={product.id} className="group relative flex flex-col">
-                <div
-                  onClick={() => onSelectProduct(product.id)}
-                  className="relative w-full aspect-[3/4] bg-[#f7f3f2] mb-4 overflow-hidden rounded-xs cursor-pointer border border-[#cfc4bd]/30"
-                >
-                  {product.isSale && (
-                    <div className="absolute top-3 left-3 z-10 bg-[#ffffff] border border-[#cfc4bd] px-2.5 py-1 shadow-xs">
-                      <span className="text-[10px] uppercase tracking-wider font-semibold text-[#191715]">
-                        SALE {product.discountPercentage ? `-${product.discountPercentage}%` : ''}
-                      </span>
-                    </div>
-                  )}
-
-                  {product.isNew && (
-                    <div className="absolute top-3 left-3 z-10 bg-[#ffffff] border border-[#cfc4bd] px-2.5 py-1 shadow-xs">
-                      <span className="text-[10px] uppercase tracking-wider font-semibold text-[#191715]">
-                        NEW
-                      </span>
-                    </div>
-                  )}
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleWishlist(product);
-                    }}
-                    className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-xs transition-all duration-300 ${
-                      isSaved
-                        ? 'bg-white text-[#ba1a1a] opacity-100 shadow-sm'
-                        : 'bg-white/70 text-[#191715] opacity-0 group-hover:opacity-100 hover:bg-white'
-                    }`}
-                    aria-label="Save to wishlist"
+              <div key={product.id} className="group relative flex flex-col luxury-card p-3.5 rounded-xs bg-[#fdf8f7] h-full justify-between">
+                <div className="flex flex-col flex-1">
+                  <div
+                    onClick={() => onSelectProduct(product.id)}
+                    className="relative w-full aspect-[3/4] bg-[#f7f3f2] mb-3 overflow-hidden rounded-xs cursor-pointer neumorphic-inset"
                   >
-                    <span
-                      className="material-symbols-outlined text-[18px]"
-                      style={{ fontVariationSettings: isSaved ? "'FILL' 1" : "'FILL' 0" }}
-                    >
-                      favorite
-                    </span>
-                  </button>
+                    {product.isSale && (
+                      <div className="absolute top-3 left-3 z-10 bg-[#ffffff] border border-[#cfc4bd] px-2.5 py-1 shadow-xs rounded-xs">
+                        <span className="text-[10px] uppercase tracking-wider font-semibold text-[#191715]">
+                          SALE {product.discountPercentage ? `-${product.discountPercentage}%` : ''}
+                        </span>
+                      </div>
+                    )}
 
-                  <img
-                    src={product.mainImage}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                    {product.isNew && (
+                      <div className="absolute top-3 left-3 z-10 bg-[#ffffff] border border-[#cfc4bd] px-2.5 py-1 shadow-xs rounded-xs">
+                        <span className="text-[10px] uppercase tracking-wider font-semibold text-[#191715]">
+                          NEW
+                        </span>
+                      </div>
+                    )}
 
-                  <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        onQuickAdd(product);
+                        onToggleWishlist(product);
                       }}
-                      className="w-full bg-[#ffffff] text-[#191715] text-[11px] uppercase tracking-widest font-medium py-3 border border-[#cfc4bd] hover:bg-[#191715] hover:text-white transition-colors shadow-sm cursor-pointer rounded-xs"
+                      className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-xs transition-all duration-300 ${
+                        isSaved
+                          ? 'bg-white text-[#ba1a1a] opacity-100 shadow-sm'
+                          : 'bg-white/70 text-[#191715] opacity-0 group-hover:opacity-100 hover:bg-white'
+                      }`}
+                      aria-label="Save to wishlist"
                     >
-                      ADD TO BAG
+                      <span
+                        className="material-symbols-outlined text-[18px]"
+                        style={{ fontVariationSettings: isSaved ? "'FILL' 1" : "'FILL' 0" }}
+                      >
+                        favorite
+                      </span>
                     </button>
-                  </div>
-                </div>
 
-                <div className="flex justify-between items-start">
-                  <div>
-                    <span className="text-[11px] uppercase tracking-widest text-[#7e756f] block mb-0.5">
-                      {product.subCategory || 'Footwear'}
-                    </span>
-                    <h3
-                      onClick={() => onSelectProduct(product.id)}
-                      className="text-[14px] md:text-[15px] font-medium text-[#191715] mb-1 hover:underline cursor-pointer"
-                    >
-                      {product.name}
-                    </h3>
-                    <div className="flex items-center gap-2">
-                      <p className={`text-[14px] ${product.isSale ? 'text-[#ba1a1a] font-semibold' : 'text-[#4c4540]'}`}>
-                        ${product.price}
-                      </p>
-                      {product.originalPrice && (
-                        <p className="text-[13px] text-[#7e756f] line-through">${product.originalPrice}</p>
-                      )}
+                    <img
+                      src={product.mainImage}
+                      alt={product.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+
+                    <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onQuickAdd(product);
+                        }}
+                        className="w-full bg-[#ffffff] text-[#191715] text-[11px] uppercase tracking-widest font-medium py-2.5 border border-[#cfc4bd] hover:bg-[#191715] hover:text-white transition-colors shadow-sm cursor-pointer rounded-xs"
+                      >
+                        ADD TO BAG
+                      </button>
                     </div>
                   </div>
+
+                  <p className="text-[10px] uppercase tracking-widest text-[#69635e] font-semibold mb-1">
+                    {product.subCategory || 'Footwear'}
+                  </p>
+
+                  <h3
+                    onClick={() => onSelectProduct(product.id)}
+                    className="text-[14px] font-medium text-[#191715] mb-2 hover:underline cursor-pointer line-clamp-1 leading-snug"
+                  >
+                    {product.name}
+                  </h3>
+                </div>
+
+                <div className="flex items-center justify-between pt-2.5 border-t border-[#cfc4bd]/40 mt-2">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[14px] font-semibold ${product.isSale ? 'text-[#ba1a1a]' : 'text-[#191715]'}`}>
+                      ${product.price}
+                    </span>
+                    {product.originalPrice && (
+                      <span className="text-[12px] text-[#7e756f] line-through">${product.originalPrice}</span>
+                    )}
+                  </div>
+
+                  {product.rating && (
+                    <div className="flex items-center gap-1 text-[11px] text-[#69635e]">
+                      <span className="material-symbols-outlined text-[13px] text-[#8c7d70]">star</span>
+                      <span>{product.rating}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             );

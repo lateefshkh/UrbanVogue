@@ -81,7 +81,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
             wishlistedProducts.map((product) => (
               <div
                 key={product.id}
-                className="flex gap-4 pb-6 border-b border-[#cfc4bd]/30 last:border-b-0"
+                className="flex gap-4 p-3.5 luxury-card rounded-xs bg-[#fdf8f7]"
               >
                 <img
                   src={product.mainImage}

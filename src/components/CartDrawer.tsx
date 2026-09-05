@@ -123,7 +123,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             cart.map((item) => (
               <div
                 key={item.id}
-                className="flex gap-4 pb-6 border-b border-[#cfc4bd]/30 last:border-b-0"
+                className="flex gap-4 p-3.5 luxury-card rounded-xs bg-[#fdf8f7]"
               >
                 <img
                   src={item.image}
