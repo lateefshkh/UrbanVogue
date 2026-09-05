@@ -24,8 +24,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
   const [promoMessage, setPromoMessage] = useState<string>('');
 
-  if (!isOpen) return null;
-
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const discountAmount = subtotal * appliedDiscount;
   const shippingThreshold = 150;
@@ -47,15 +45,28 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
+    <div
+      className={`fixed inset-0 z-50 flex justify-end transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isOpen
+          ? 'opacity-100 pointer-events-auto visible'
+          : 'opacity-0 pointer-events-none invisible delay-300'
+      }`}
+      aria-hidden={!isOpen}
+    >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+        className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'opacity-100' : 'opacity-0'
+        }`}
         onClick={onClose}
       />
 
       {/* Drawer Body */}
-      <div className="relative w-full max-w-md bg-[#fdf8f7] h-full shadow-2xl flex flex-col z-10 border-l border-[#cfc4bd]">
+      <div
+        className={`relative w-full max-w-md bg-[#fdf8f7] h-full shadow-2xl flex flex-col z-10 border-l border-[#cfc4bd] transform transition-transform duration-450 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
         {/* Header */}
         <div className="p-6 border-b border-[#cfc4bd]/40 flex justify-between items-center bg-[#f7f3f2]">
           <div>

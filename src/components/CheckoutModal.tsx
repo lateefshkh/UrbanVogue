@@ -27,8 +27,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     cvv: '•••',
   });
 
-  if (!isOpen) return null;
-
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -44,8 +42,27 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-      <div className="relative w-full max-w-lg bg-[#fdf8f7] border border-[#cfc4bd] p-8 rounded-xs shadow-2xl">
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isOpen
+          ? 'opacity-100 pointer-events-auto visible'
+          : 'opacity-0 pointer-events-none invisible delay-200'
+      }`}
+      aria-hidden={!isOpen}
+    >
+      {/* Backdrop */}
+      <div
+        className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={stage !== 'confirmed' ? onClose : undefined}
+      />
+
+      <div
+        className={`relative w-full max-w-lg bg-[#fdf8f7] border border-[#cfc4bd] p-8 rounded-xs shadow-2xl z-10 transform transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 translate-y-3 opacity-0'
+        }`}
+      >
         <div className="flex justify-between items-center mb-6 border-b border-[#cfc4bd]/40 pb-4">
           <h3 className="text-2xl font-serif text-[#191715]">
             {stage === 'confirmed' ? 'Order Confirmed' : 'Express Checkout'}

@@ -219,8 +219,9 @@
           align-items: center;
   border-radius: 0px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(26, 18, 14, 0.42);
   color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .glassContainer::before {
@@ -266,48 +267,29 @@
       -ms-flex-pack: center;
           justify-content: center;
   cursor: pointer;
-  background: transparent;
-  border-radius: 9999px;
+  background: transparent !important;
+  border-radius: 0px;
   outline: none;
-  border: none;
-  z-index: 0;
+  border: none !important;
+  box-shadow: none !important;
+  z-index: 1;
   color: #ffffff;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  opacity: 0.9;
 }
 
 .glassBtn:hover {
-  transform: scale(1.05);
+  opacity: 1;
+  transform: scale(1.08);
 }
 
 .glassBtn:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
 }
 
-.glassBtn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
-}
-
+.glassBtn::before,
 .glassBtn::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  border-radius: 9999px;
-  -webkit-backdrop-filter: blur(0px);
-          backdrop-filter: blur(0px);
-  -webkit-filter: url(#btn-glass);
-          filter: url(#btn-glass);
-  overflow: hidden;
-  isolation: isolate;
-  pointer-events: none;
+  display: none !important;
 }
 
 .glassBtn svg {
@@ -322,6 +304,131 @@
 
 .activeGlassNav {
   background-color: rgb(255 255 255 / 15%) !important;
+}
+
+/* ==========================================================================
+   Luxury Motion & Animation System
+   Subtle, minimal, fluid cubic-bezier(0.16, 1, 0.3, 1) luxury transitions
+   ========================================================================== */
+
+@keyframes luxuryFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes luxurySlideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes luxurySlideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes luxuryModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes luxuryToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes luxuryPulseLight {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-fade-in {
+  animation: luxuryFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-modal-in {
+  animation: luxuryModalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: luxurySlideInRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-left {
+  animation: luxurySlideInLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-toast-in {
+  animation: luxuryToastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Luxury Interactive Micro-Interactions */
+.luxury-card {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px -12px rgba(25, 23, 21, 0.12);
+}
+
+.luxury-img-zoom {
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .luxury-img-zoom {
+  transform: scale(1.045);
+}
+
+.luxury-link {
+  position: relative;
+  display: inline-block;
+}
+
+.luxury-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-link:hover::after {
+  width: 100%;
+}
+
+.badge-pulse {
+  animation: luxuryPulseLight 1.8s infinite ease-in-out;
 }
 
 @-webkit-keyframes moveBackground {
@@ -341,5 +448,6 @@
     background-position: 0% -1000%;
   }
 }
+
 
 

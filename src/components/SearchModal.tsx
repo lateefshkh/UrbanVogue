@@ -25,8 +25,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const results = query.trim() === ''
     ? []
     : products.filter((p) =>
@@ -36,8 +34,28 @@ export const SearchModal: React.FC<SearchModalProps> = ({
       );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 md:pt-28 px-4 bg-black/60 backdrop-blur-xs">
-      <div className="relative w-full max-w-2xl bg-[#fdf8f7] border border-[#cfc4bd] rounded-xs shadow-2xl overflow-hidden">
+    <div
+      className={`fixed inset-0 z-50 flex items-start justify-center pt-16 md:pt-28 px-4 transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isOpen
+          ? 'opacity-100 pointer-events-auto visible'
+          : 'opacity-0 pointer-events-none invisible delay-200'
+      }`}
+      aria-hidden={!isOpen}
+    >
+      {/* Backdrop */}
+      <div
+        className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={onClose}
+      />
+
+      {/* Modal Content */}
+      <div
+        className={`relative w-full max-w-2xl bg-[#fdf8f7] border border-[#cfc4bd] rounded-xs shadow-2xl overflow-hidden z-10 transform transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 -translate-y-4 opacity-0'
+        }`}
+      >
         {/* Search Input Bar */}
         <div className="p-4 sm:p-6 border-b border-[#cfc4bd]/50 flex items-center gap-3 bg-[#f7f3f2]">
           <span className="material-symbols-outlined text-[#7e756f]">search</span>

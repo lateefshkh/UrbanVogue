@@ -8,8 +8,6 @@ interface SizeGuideModalProps {
 export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose }) => {
   const [unit, setUnit] = useState<'inches' | 'cm'>('inches');
 
-  if (!isOpen) return null;
-
   const measurements = [
     { size: 'S', chestIn: '36-38', chestCm: '91-96', waistIn: '30-32', waistCm: '76-81', sleeveIn: '33.5', sleeveCm: '85' },
     { size: 'M', chestIn: '38-40', chestCm: '96-101', waistIn: '32-34', waistCm: '81-86', sleeveIn: '34.5', sleeveCm: '87.5' },
@@ -18,8 +16,27 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-      <div className="relative w-full max-w-xl bg-[#fdf8f7] border border-[#cfc4bd] p-8 rounded-xs shadow-2xl">
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isOpen
+          ? 'opacity-100 pointer-events-auto visible'
+          : 'opacity-0 pointer-events-none invisible delay-200'
+      }`}
+      aria-hidden={!isOpen}
+    >
+      {/* Backdrop */}
+      <div
+        className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={onClose}
+      />
+
+      <div
+        className={`relative w-full max-w-xl bg-[#fdf8f7] border border-[#cfc4bd] p-8 rounded-xs shadow-2xl z-10 transform transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 translate-y-3 opacity-0'
+        }`}
+      >
         <div className="flex justify-between items-center mb-6 border-b border-[#cfc4bd]/40 pb-4">
           <div>
             <h3 className="text-2xl font-serif text-[#191715]">Size &amp; Fit Guide</h3>

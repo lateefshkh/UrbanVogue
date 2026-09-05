@@ -153,10 +153,10 @@ export const Header: React.FC<HeaderProps> = ({
                     key={item.id}
                     id={`nav-${item.id}-btn`}
                     onClick={() => setActiveTab(item.id as ActiveTab)}
-                    className={`pb-1 transition-all duration-200 cursor-pointer ${
+                    className={`pb-1 transition-all duration-300 cursor-pointer ${
                       isActive
                         ? "border-b border-white text-white font-semibold"
-                        : "border-b border-transparent text-white/75 hover:text-white"
+                        : "border-b border-transparent text-white/80 hover:text-white"
                     }`}
                   >
                     {item.label}
@@ -251,82 +251,92 @@ export const Header: React.FC<HeaderProps> = ({
       </header>
 
       {/* Mobile Drawer */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex">
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
+      <div
+        className={`fixed inset-0 z-50 md:hidden flex transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isMobileMenuOpen
+            ? "opacity-100 pointer-events-auto visible"
+            : "opacity-0 pointer-events-none invisible delay-300"
+        }`}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        {/* Backdrop */}
+        <div
+          className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isMobileMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
 
-          {/* Drawer Menu */}
-          <div className="relative w-72 max-w-[80vw] bg-[#fdf8f7] text-[#191715] h-full shadow-2xl flex flex-col z-10 border-r border-[#cfc4bd]">
-            <div className="p-6 border-b border-[#cfc4bd]/40 flex justify-between items-center">
-              <span className="text-xl font-serif font-bold tracking-tight">
-                Danish Vogue
-              </span>
-              <button
-                type="button"
-                id="close-mobile-drawer-btn"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="glassBtn w-9 h-9 p-1 text-[#4c4540] hover:text-[#191715] focus:outline-none cursor-pointer"
-                aria-label="Close mobile menu"
+        {/* Drawer Menu */}
+        <div
+          className={`relative w-72 max-w-[80vw] bg-[#fdf8f7] text-[#191715] h-full shadow-2xl flex flex-col z-10 border-r border-[#cfc4bd] transform transition-transform duration-450 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="p-6 border-b border-[#cfc4bd]/40 flex justify-between items-center bg-[#f7f3f2]">
+            <span className="text-xl font-serif font-bold tracking-tight text-[#191715]">
+              Danish Vogue
+            </span>
+            <button
+              type="button"
+              id="close-mobile-drawer-btn"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-1 text-[#4c4540] hover:text-[#191715] focus:outline-none cursor-pointer"
+              aria-label="Close mobile menu"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+
+          <nav className="flex flex-col p-4 gap-1 text-[15px]">
+            {[
+              { id: "home", label: "Home", icon: "home" },
+              { id: "shop", label: "Shop", icon: "shopping_basket" },
+              { id: "clothing", label: "Clothing", icon: "apparel" },
+              { id: "footwear", label: "Footwear", icon: "straighten" },
+              { id: "accessories", label: "Accessories", icon: "watch" },
+              { id: "lookbook", label: "Lookbook", icon: "menu_book" },
+              { id: "sale", label: "Sale", icon: "sell" },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id as ActiveTab);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-sm text-left transition-colors ${
+                  activeTab === item.id
+                    ? "bg-[#eae1da] text-[#191715] font-medium"
+                    : "text-[#4c4540] hover:bg-[#f1edec]"
+                }`}
+              >
+                <span className="material-symbols-outlined text-[20px]">
+                  {item.icon}
+                </span>
+                {item.label}
               </button>
-            </div>
+            ))}
+          </nav>
 
-            <nav className="flex flex-col p-4 gap-1 text-[15px]">
-              {[
-                { id: "home", label: "Home", icon: "home" },
-                { id: "shop", label: "Shop", icon: "shopping_basket" },
-                { id: "clothing", label: "Clothing", icon: "apparel" },
-                { id: "footwear", label: "Footwear", icon: "straighten" },
-                { id: "accessories", label: "Accessories", icon: "watch" },
-                { id: "lookbook", label: "Lookbook", icon: "menu_book" },
-                { id: "sale", label: "Sale", icon: "sell" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setActiveTab(item.id as ActiveTab);
-                    setIsMobileMenuOpen(false);
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-sm text-left transition-colors ${
-                    activeTab === item.id
-                      ? "bg-[#eae1da] text-[#191715] font-medium"
-                      : "text-[#4c4540] hover:bg-[#f1edec]"
-                  }`}
-                >
-                  <span className="material-symbols-outlined text-[20px]">
-                    {item.icon}
-                  </span>
-                  {item.label}
-                </button>
-              ))}
-            </nav>
-
-            <div className="mt-auto p-6 border-t border-[#cfc4bd]/40 text-xs text-[#69635e]">
-              <p className="font-serif italic mb-1">AUTUMN / WINTER 2026</p>
-              <p>© 2026 Danish Vogue Editorial</p>
-            </div>
+          <div className="mt-auto p-6 border-t border-[#cfc4bd]/40 text-xs text-[#69635e]">
+            <p className="font-serif italic mb-1">AUTUMN / WINTER 2026</p>
+            <p>© 2026 Danish Vogue Editorial</p>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 };
