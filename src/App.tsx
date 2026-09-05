@@ -96,32 +96,22 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Direct category navigation (e.g. from Nav clicks or Essentials clicks)
+  // Direct category navigation handler
   const handleTabChange = (tab: ActiveTab) => {
     setSelectedProductId(null);
-    if (tab === 'clothing' || tab === 'footwear' || tab === 'accessories' || tab === 'lookbook' || tab === 'sale') {
+    if (activeTab === 'home' && (tab === 'clothing' || tab === 'footwear' || tab === 'accessories' || tab === 'lookbook' || tab === 'sale')) {
       const sectionId = `${tab}-section`;
       const el = document.getElementById(sectionId);
-      if (el && activeTab === 'home') {
+      if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
-        return;
-      } else {
-        setActiveTab('home');
-        setShopCategoryFilter(tab);
-        setTimeout(() => {
-          const targetEl = document.getElementById(sectionId);
-          if (targetEl) {
-            targetEl.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        }, 80);
         return;
       }
     }
 
     setActiveTab(tab);
-    if (tab === 'shop') {
+    if (tab === 'clothing' || tab === 'footwear' || tab === 'accessories' || tab === 'sale') {
+      setShopCategoryFilter(tab);
+    } else if (tab === 'shop') {
       setShopCategoryFilter('all');
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -393,4 +383,4 @@ export default function App() {
       />
     </div>
   );
-}
+};
