@@ -205,3 +205,141 @@
   background-color: #cfc4bd;
   margin-left: 24px;
 }
+
+/* ==========================================================================
+   Liquid Glass Effect (Normal rectangular navbar with thinnest hairline border)
+   ========================================================================== */
+.glassContainer {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 0px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+}
+
+.glassContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 0px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.glassContainer::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: 0px;
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
+  -webkit-filter: url(#container-glass);
+          filter: url(#container-glass);
+  overflow: hidden;
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.glassContainer > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glassBtn {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 9999px;
+  outline: none;
+  border: none;
+  z-index: 0;
+  color: #ffffff;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.glassBtn:hover {
+  transform: scale(1.05);
+}
+
+.glassBtn:active {
+  transform: scale(0.95);
+}
+
+.glassBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.glassBtn::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: 9999px;
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
+  -webkit-filter: url(#btn-glass);
+          filter: url(#btn-glass);
+  overflow: hidden;
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.glassBtn svg {
+  width: 100%;
+  height: 100%;
+  stroke: #ffffff;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
+
+.activeGlassNav {
+  background-color: rgb(255 255 255 / 15%) !important;
+}
+
+@-webkit-keyframes moveBackground {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% -1000%;
+  }
+}
+
+@keyframes moveBackground {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% -1000%;
+  }
+}
+
+

@@ -235,7 +235,7 @@ export default function App() {
       />
 
       {/* Main View Router */}
-      <div className="flex-1 w-full">
+      <div className={`flex-1 w-full ${activeTab === 'home' && !selectedProductId ? '' : 'pt-24 md:pt-28'}`}>
         {selectedProductId && currentProduct ? (
           <ProductDetailView
             product={currentProduct}
