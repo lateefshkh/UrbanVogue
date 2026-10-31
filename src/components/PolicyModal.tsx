@@ -14,9 +14,9 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ title, onClose }) => {
         return (
           <div className="space-y-4 text-xs text-[#4c4540] leading-relaxed">
             <p>
-              Danish Vogue is committed to safeguarding personal data. We
-              collect order processing details, preference indicators, and
-              telemetry solely to enhance your bespoke shopping experience.
+              Urban Vogue is committed to safeguarding personal data. We collect
+              order processing details, preference indicators, and telemetry
+              solely to enhance your bespoke shopping experience.
             </p>
             <p>
               We do not sell personal information to third parties. All
@@ -33,7 +33,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ title, onClose }) => {
           <div className="space-y-4 text-xs text-[#4c4540] leading-relaxed">
             <p>
               All garments, lookbook imagery, editorial copy, and typography
-              displayed on Danish Vogue are proprietary and protected under
+              displayed on Urban Vogue are proprietary and protected under
               international copyright conventions.
             </p>
             <p>
@@ -110,7 +110,9 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ title, onClose }) => {
 
       <div
         className={`relative w-full max-w-lg bg-[#fdf8f7] border border-[#cfc4bd] p-8 rounded-xs shadow-2xl z-10 transform transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isOpen ? "scale-100 translate-y-0 opacity-100" : "scale-95 translate-y-3 opacity-0"
+          isOpen
+            ? "scale-100 translate-y-0 opacity-100"
+            : "scale-95 translate-y-3 opacity-0"
         }`}
       >
         <div className="flex justify-between items-center mb-6 border-b border-[#cfc4bd]/40 pb-4">

@@ -76,7 +76,7 @@ export const Footer: React.FC<FooterProps> = ({
           }}
           className="text-3xl md:text-4xl font-serif font-bold tracking-tighter text-white hover:opacity-90 transition-opacity mb-8 cursor-pointer"
         >
-          Danish Vogue
+          Urban Vogue
         </button>
 
         {/* Primary Category Links */}
@@ -183,7 +183,7 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Copyright */}
         <p className="text-[11px] tracking-[0.15em] text-[#97928f]/60 uppercase">
-          © 2026 Danish Vogue EDITORIAL. ALL RIGHTS RESERVED.
+          © 2026 Urban Vogue EDITORIAL. ALL RIGHTS RESERVED.
         </p>
       </div>
     </footer>

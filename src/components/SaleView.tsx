@@ -95,7 +95,7 @@ export const SaleView: React.FC<SaleViewProps> = ({
               Sale & Archival Drops
             </h1>
             <p className="text-[15px] sm:text-[16px] text-[#cfc5ba] max-w-lg leading-relaxed mb-6 font-sans">
-              Curated reductions on past capsule collections, Italian tailoring, cashmere knits, and handcrafted footwear with complimentary insured dispatch.
+              Curated reductions on past capsule gowns, silk slip dresses, and archival haute couture with complimentary insured dispatch.
             </p>
             <div className="flex items-center gap-6 text-xs uppercase tracking-wider text-[#9f9488] font-medium">
               <span>Up to 30% OFF</span>
@@ -107,8 +107,8 @@ export const SaleView: React.FC<SaleViewProps> = ({
           </div>
           <div className="w-full md:w-2/5 min-h-[220px] md:min-h-[300px] relative overflow-hidden bg-[#141312]">
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrRXMSeMT_Ae5lZOvkQNMabDLAX-v5qFpSuy_vOZiPuItDwfE-kQv9UFOXZMEx0cMvLOa0FZAzKVljS5louJr4GwYqDzqDQNF_qn3QnfBxI3oLr3tEkdyencGMOSzKXRbfI4z09I6C2sZncLfeWkNhYywWoaDe7CjMaWEykhaPSUWJ_IEkmUMX6ZmFKqnOGHRpEdWCrc00OVuoR7eZm1PHnVRYUjWP-mS9a7ZF0N06oZjkL7egUmvO"
-              alt="Sale editorial drop"
+              src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=1200&q=80"
+              alt="Sale editorial dresses drop"
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-black/30" />

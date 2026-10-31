@@ -31,8 +31,8 @@ export const FootwearView: React.FC<FootwearViewProps> = ({
 
   const footwearCategories = [
     { id: 'all', label: 'All Footwear' },
-    { id: 'Boots', label: 'Boots & Chukkas' },
-    { id: 'Loafers', label: 'Suede & Leather Loafers' },
+    { id: 'Heels & Pumps', label: 'Stilettos & Pumps' },
+    { id: 'Boots', label: 'Boots & Booties' },
     { id: 'Sneakers', label: 'Minimalist Sneakers' },
   ];
 
@@ -81,23 +81,23 @@ export const FootwearView: React.FC<FootwearViewProps> = ({
               ARTISANAL FOOTWEAR
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white mb-4 tracking-tight leading-tight">
-              Footwear Collection
+              Handcrafted Footwear & Stilettos
             </h1>
             <p className="text-[15px] sm:text-[16px] text-[#d1c8bd] max-w-lg leading-relaxed mb-6 font-sans">
-              Hand-lasted Tuscan calfskin boots, Blake-stitched reverse suede loafers, and low-profile Nappa leather sneakers engineered for enduring comfort and character.
+              Hand-lasted Italian stiletto pumps, sleek Tuscan Chelsea boots, and low-profile Nappa leather sneakers engineered for enduring luxury and feminine poise.
             </p>
             <div className="flex items-center gap-6 text-xs uppercase tracking-wider text-[#a89f95] font-medium">
-              <span>Goodyear Welted</span>
+              <span>Italian Stilettos</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#706a64]" />
               <span>Full-Grain Calfskin</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#706a64] hidden sm:inline-block" />
-              <span className="hidden sm:inline-block">Vibram & Leather Soles</span>
+              <span className="hidden sm:inline-block">Tuscan Artisan Built</span>
             </div>
           </div>
           <div className="w-full md:w-2/5 min-h-[220px] md:min-h-[300px] relative overflow-hidden bg-[#161514]">
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmiTj7I_Hd95nRgxhzUi7UkmOVVBKxDWUKwmki2qO0LQuP__1LTNeLVP5grd0Kj9KSS6iLDxf1wYE5WzuIbdO_D914LEqB5xAlOEJeQByyozxHRTfIF3YaHGGDDPKwLD9mXTgZ82dMXb5F3oUfIqgCKtfjYpct3eYC97Z63XqRH4dh97dSESnMo2CzTs6pjxtSLQ-xd7nMAX4e_DA1q-E-ugbUdfO8oCIuSvHlRtwUlDwx8soOoo2G"
-              alt="Footwear collection editorial"
+              src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1200&q=80"
+              alt="Designer Footwear & Stilettos Editorial"
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-black/20" />
@@ -164,7 +164,7 @@ export const FootwearView: React.FC<FootwearViewProps> = ({
               EU Shoe Size
             </label>
             <div className="flex flex-wrap gap-2">
-              {['all', '40', '41', '42', '43', '44', '45'].map((size) => (
+              {['all', '36', '37', '38', '39', '40', '41'].map((size) => (
                 <button
                   key={size}
                   onClick={() => setFilterState((prev) => ({ ...prev, size }))}

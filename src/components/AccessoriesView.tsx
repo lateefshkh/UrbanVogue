@@ -31,10 +31,10 @@ export const AccessoriesView: React.FC<AccessoriesViewProps> = ({
 
   const accessoryCategories = [
     { id: 'all', label: 'All Accessories' },
-    { id: 'Bags', label: 'Leather Bags & Holdalls' },
-    { id: 'Small Leather Goods', label: 'Wallets & Cardholders' },
-    { id: 'Scarves', label: 'Cashmere Scarves' },
-    { id: 'Belts', label: 'Belts & Hardware' },
+    { id: 'Bags', label: 'Handbags & Totes' },
+    { id: 'Scarves', label: 'Cashmere & Silk Wraps' },
+    { id: 'Belts', label: 'Sculpted Waist Belts' },
+    { id: 'Small Leather Goods', label: 'Clutches & Wallets' },
   ];
 
   const accessoryProducts = useMemo(() => {
@@ -81,20 +81,20 @@ export const AccessoriesView: React.FC<AccessoriesViewProps> = ({
               Fine Accessories
             </h1>
             <p className="text-[15px] sm:text-[16px] text-[#d9d0c7] max-w-lg leading-relaxed mb-6 font-sans">
-              Vegetable-tanned Tuscan travel holdalls, Scottish cashmere knits, and hand-finished small leather goods crafted to elevate everyday rituals.
+              Full-grain Tuscan leather structured totes, Grade-A Mongolian cashmere wraps, and sculpted waist belts crafted to elevate feminine elegance.
             </p>
             <div className="flex items-center gap-6 text-xs uppercase tracking-wider text-[#b3a89e] font-medium">
-              <span>Full-Grain Vegetable Leather</span>
+              <span>Full-Grain Tuscan Leather</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#756a62]" />
-              <span>Solid Brass Hardware</span>
+              <span>Solid Brass Accents</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#756a62] hidden sm:inline-block" />
               <span className="hidden sm:inline-block">Mongolian Cashmere</span>
             </div>
           </div>
           <div className="w-full md:w-2/5 min-h-[220px] md:min-h-[300px] relative overflow-hidden bg-[#24201e]">
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8pvWpVATTjLV_h5E2WgsaMmpG6zqRg5FitWQ57greFhrQNSkkZeFP4Sk1F7DLDkrmP8PBtkT16sTXSuuTbxMs7XMAXudKnepLbrO9AfxxpUkOeDO9CCrJIJ_vu6u1NryzU9-oFWa2W4uZ7THxnDx_XAAXa0DxGkuHchTZ22L_FsbsxZxNohl-zza5U1A4vkwloQAeT4AHWCIW96-3MxhwJBW5p82fpp5MtP2z1VVqTj0SW0v4AGsE"
-              alt="Fine accessories collection"
+              src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=80"
+              alt="Fine designer handbags and accessories collection"
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-black/20" />

@@ -31,12 +31,12 @@ export const ClothingView: React.FC<ClothingViewProps> = ({
 
   // Clothing sub-categories
   const clothingCategories = [
-    { id: 'all', label: 'All Apparel' },
-    { id: 'tailoring', label: 'Tailoring & Blazers' },
-    { id: 'trousers', label: 'Trousers & Chinos' },
-    { id: 'outerwear', label: 'Outerwear & Coats' },
-    { id: 'knitwear', label: 'Merino & Knitwear' },
-    { id: 'shirting', label: 'Shirting & Layers' },
+    { id: 'all', label: 'All Dresses' },
+    { id: 'Slip Dresses', label: 'Slip Dresses' },
+    { id: 'Evening Gowns', label: 'Evening Gowns' },
+    { id: 'Cocktail Dresses', label: 'Cocktail Dresses' },
+    { id: 'Tailored Dresses', label: 'Tailored Dresses' },
+    { id: 'Midi Dresses', label: 'Midi & Knit Dresses' },
   ];
 
   // Base clothing items: category is clothing, outerwear, knitwear, or shirting
@@ -55,11 +55,11 @@ export const ClothingView: React.FC<ClothingViewProps> = ({
       .filter((p) => {
         // Subcategory filter
         if (filterState.subCategory !== 'all') {
-          if (filterState.subCategory === 'tailoring' && p.subCategory !== 'Tailoring') return false;
-          if (filterState.subCategory === 'trousers' && p.subCategory !== 'Trousers') return false;
-          if (filterState.subCategory === 'outerwear' && p.category !== 'outerwear') return false;
-          if (filterState.subCategory === 'knitwear' && p.category !== 'knitwear') return false;
-          if (filterState.subCategory === 'shirting' && p.category !== 'shirting' && p.subCategory !== 'Shirts & Layers') return false;
+          if (filterState.subCategory === 'Midi Dresses') {
+            if (p.subCategory !== 'Midi Dresses' && p.subCategory !== 'Knit Dresses') return false;
+          } else if (p.subCategory !== filterState.subCategory) {
+            return false;
+          }
         }
 
         // Size filter
@@ -95,23 +95,23 @@ export const ClothingView: React.FC<ClothingViewProps> = ({
               WARDROBE ARCHITECTURE
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#191715] mb-4 tracking-tight leading-tight">
-              Clothing & Tailoring
+              Haute Couture & Designer Dresses
             </h1>
             <p className="text-[15px] sm:text-[16px] text-[#4c4540] max-w-lg leading-relaxed mb-6 font-sans">
-              Precision cut tailoring, relaxed trousers, extrafine knitwear, and architectural outerwear designed with timeless poise.
+              Liquid silk slips, sculpted blazer gowns, dramatic evening silhouettes, and tiered chiffon midi dresses designed with timeless grace.
             </p>
             <div className="flex items-center gap-6 text-xs uppercase tracking-wider text-[#69635e] font-medium">
-              <span>Italian Wool Blends</span>
+              <span>Mulberry Silk Charmeuse</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#cfc4bd]" />
-              <span>Giza Long-Staple Cotton</span>
+              <span>Italian Virgin Wool</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#cfc4bd] hidden sm:inline-block" />
-              <span className="hidden sm:inline-block">Scottish Merino</span>
+              <span className="hidden sm:inline-block">Silk-Blend Velvet</span>
             </div>
           </div>
           <div className="w-full md:w-2/5 min-h-[220px] md:min-h-[300px] relative overflow-hidden bg-[#d8cec6]">
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrqRpn5adGx8quwceBjFFHRddLDquUwQrWmylKu1z-8HhbaBSQWgovwFq6wD947YGr5DG_81BGeoU8FiW-jkmhh9zgEWhhzlfctSC8NRSH8aaSRkM9AznDPwqavFD6R6PjATHGwtYX-YNGvY8PYAPS2IpudRvD9CDcGAYQ4JZWc6ew4aW7UpxURaOAX71YbpqLGX5wND0Kz4E3312It6xOIis2icXFps3LmIeqqItUOTmTDr1A-vpl"
-              alt="Clothing collection editorial"
+              src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80"
+              alt="Haute Couture & Designer Dresses Editorial"
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-black/10" />

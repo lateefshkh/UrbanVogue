@@ -23,44 +23,44 @@ export const HomeView: React.FC<HomeViewProps> = ({
   const essentials = [
     {
       id: "casual-wear",
-      name: "Casual Wear",
+      name: "Silk & Slip Dresses",
       category: "clothing",
       image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuCLwNt-JUqEiQBgOyYKRwISaq1vldmJmPrNklrshhkhtclV4Upsgc7AaUT5ZqVei6_ASy12ZqkG0uxqv_tgRKqXTcLtold7q__nRp1tMwC113L55DEKm6vWhKTieaYyx0FcIthWi1_9ddfhBin6ZqrnWzc5mTYkiR8Dn_ylYdd3n0GWYx2UO3C8VkgOsh1jdKi1wGM6jV-paY6FlKH4FvKLwZm8wlwHLqyaHpaQy7TKeB5A9E1EXtOX",
+        "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "formal-wear",
-      name: "Formal Tailoring",
+      name: "Gala & Evening Gowns",
       category: "clothing",
       image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuBSpEOuLX7HYB4g013tWaLsN5U-W_t3fgg54QtYpirntkdAN2ONpfvPqXHVSRMxXI7zDnv_1EKWWHzQmrGMFb3jLMLB1fG2ydZxVk6hB6soQhaBhKaxW8Q1hc6g4FT3UW_dVzzgTHxEsvVKNHyrdTdw77iswaIn6wvK1CgC56L58mfknew3-lOBEbdZRAGbZztkjPFasYUCNU2Ek9ZxWelQyH4CaQCjsaCqwdxk5wezAi6Hd54fSnk-",
+        "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "street-style",
-      name: "Outerwear & Coats",
-      category: "outerwear",
+      name: "Cocktail & Runway",
+      category: "clothing",
       image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuBj2A-uVo6yu5uFRIfIDuEzryaS-COHX_pXgDQpsaihJHDBBVvijV04feZ3S0Jvdi_F52K2DBldk2qV4K_amZxdKjyT7DImhTwBHoCP77NilZRgQmt6jbyrTVu2lU75NQqZGS1TEze_DwYU4WLsjwWoiOi4wigekDBhcC_lZbz6A9i_CLOLIrRfWf2g92z4G_Poy3q9vA9Rt0DGXiO4N5RFfx6aKn4PMjTGLX4dpFwjKM4D77o1XveC",
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "footwear-cat",
       name: "Handcrafted Footwear",
       category: "footwear",
       image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuBmiTj7I_Hd95nRgxhzUi7UkmOVVBKxDWUKwmki2qO0LQuP__1LTNeLVP5grd0Kj9KSS6iLDxf1wYE5WzuIbdO_D914LEqB5xAlOEJeQByyozxHRTfIF3YaHGGDDPKwLD9mXTgZ82dMXb5F3oUfIqgCKtfjYpct3eYC97Z63XqRH4dh97dSESnMo2CzTs6pjxtSLQ-xd7nMAX4e_DA1q-E-ugbUdfO8oCIuSvHlRtwUlDwx8soOoo2G",
+        "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "accessories-cat",
       name: "Refined Accessories",
       category: "accessories",
       image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuC8pvWpVATTjLV_h5E2WgsaMmpG6zqRg5FitWQ57greFhrQNSkkZeFP4Sk1F7DLDkrmP8PBtkT16sTXSuuTbxMs7XMAXudKnepLbrO9AfxxpUkOeDO9CCrJIJ_vu6u1NryzU9-oFWa2W4uZ7THxnDx_XAAXa0DxGkuHchTZ22L_FsbsxZxNohl-zza5U1A4vkwloQAeT4AHWCIW96-3MxhwJBW5p82fpp5MtP2z1VVqTj0SW0v4AGsE",
+        "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
     },
   ];
 
   // Filtered Products for Sections
   const clothingProducts = featuredProducts.filter(
-    (p) => p.category === "clothing" || p.category === "outerwear"
+    (p) => p.category === "clothing" || p.category === "outerwear",
   );
 
   const filteredClothing =
@@ -69,15 +69,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
       : clothingProducts.filter(
           (p) =>
             p.subCategory?.toLowerCase() === clothingCategory.toLowerCase() ||
-            p.category.toLowerCase() === clothingCategory.toLowerCase()
+            p.category.toLowerCase() === clothingCategory.toLowerCase(),
         );
 
   const footwearProducts = featuredProducts.filter(
-    (p) => p.category === "footwear"
+    (p) => p.category === "footwear",
   );
 
   const accessoriesProducts = featuredProducts.filter(
-    (p) => p.category === "accessories"
+    (p) => p.category === "accessories",
   );
 
   const saleProducts = featuredProducts.filter((p) => p.isSale);
@@ -98,7 +98,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="absolute inset-0 w-full h-full">
           <img
             src="/homepage/homepage1.jpg"
-            alt="Danish Vogue Modern Menswear"
+            alt="Urban Vogue Haute Couture & Designer Dresses"
             className="w-full h-full object-cover object-center scale-100 luxury-img-zoom brightness-90"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20 md:bg-gradient-to-r md:from-black/60 md:via-black/25 md:to-transparent" />
@@ -115,7 +115,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
               Your Style
             </h1>
             <p className="text-base sm:text-lg md:text-xl font-normal text-white/90 mb-8 max-w-md drop-shadow-sm font-sans leading-relaxed">
-              Subtle Scandinavian aesthetics meet impeccable Italian craftsmanship.
+              Subtle Scandinavian aesthetics meet impeccable Italian
+              craftsmanship.
             </p>
             <div className="flex flex-wrap gap-4">
               <button
@@ -219,27 +220,31 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* 3. CLOTHING & TAILORING SECTION */}
-      <section id="clothing-section" className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24">
+      <section
+        id="clothing-section"
+        className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24"
+      >
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-4 border-b border-[#cfc4bd]/40">
           <div>
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#69635e] mb-2 font-semibold">
-              CHAPTER 01 — READY-TO-WEAR
+              CHAPTER 01 — HAUTE COUTURE
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-[#191715]">
-              Architectural Tailoring &amp; Knitwear
+              Curated Dresses &amp; Evening Wear
             </h2>
             <p className="text-sm text-[#69635e] mt-1">
-              Precision-cut outerwear, merino knitwear, and tailored suit separates.
+              Liquid silk slip dresses, sculpted blazer gowns, and opulent velvet couture.
             </p>
           </div>
 
           {/* Interactive Category Filter Pills */}
           <div className="flex flex-wrap gap-2 mt-6 md:mt-0">
             {[
-              { id: "all", label: "All Ready-to-Wear" },
-              { id: "outerwear", label: "Outerwear" },
-              { id: "tailoring", label: "Tailoring" },
-              { id: "knitwear", label: "Knitwear" },
+              { id: "all", label: "All Dresses" },
+              { id: "Slip Dresses", label: "Slip Dresses" },
+              { id: "Evening Gowns", label: "Evening Gowns" },
+              { id: "Cocktail Dresses", label: "Cocktail Dresses" },
+              { id: "Tailored Dresses", label: "Tailored Dresses" },
             ].map((cat) => (
               <button
                 key={cat.id}
@@ -293,9 +298,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
               >
                 {product.name}
               </h3>
-              <p className="text-xs text-[#69635e] mb-1.5">{product.subCategory || "Clothing"}</p>
+              <p className="text-xs text-[#69635e] mb-1.5">
+                {product.subCategory || "Clothing"}
+              </p>
               <div className="flex items-center gap-2 text-[14px]">
-                <span className="text-[#191715] font-medium">${product.price}</span>
+                <span className="text-[#191715] font-medium">
+                  ${product.price}
+                </span>
                 {product.originalPrice && (
                   <span className="text-[#7e756f] line-through text-[12px]">
                     ${product.originalPrice}
@@ -315,13 +324,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
             }}
             className="inline-flex items-center gap-2 bg-transparent text-[#191715] border border-[#191715] px-8 py-3 text-[12px] uppercase tracking-[0.18em] font-medium hover:bg-[#191715] hover:text-white transition-all duration-300 rounded-xs cursor-pointer"
           >
-            Explore Full Clothing Catalog ({clothingProducts.length} Pieces) →
+            Explore Full Dress Catalog ({clothingProducts.length} Pieces) →
           </button>
         </div>
       </section>
 
       {/* 4. LOOKBOOK EDITORIAL CAMPAIGN SECTION */}
-      <section id="lookbook-section" className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24">
+      <section
+        id="lookbook-section"
+        className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24"
+      >
         <div className="bg-[#eae1da]/60 rounded-xs border border-[#cfc4bd]/60 p-8 sm:p-12 md:p-16">
           <div className="mb-10 text-center max-w-2xl mx-auto">
             <p className="text-[11px] uppercase tracking-[0.25em] text-[#69635e] mb-2 font-semibold">
@@ -331,23 +343,24 @@ export const HomeView: React.FC<HomeViewProps> = ({
               The Copenhagen Mood
             </h2>
             <p className="text-sm sm:text-base text-[#4c4540] italic font-serif leading-relaxed">
-              "Quiet garments designed for urban clarity, crafted from double-faced cashmere and heavyweight Italian cotton."
+              "Quiet garments designed for modern clarity, crafted from
+              sumptuous mulberry silk, liquid satin, and structured Italian wool."
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             <div className="md:col-span-7 group relative overflow-hidden rounded-xs border border-[#cfc4bd]/50 shadow-sm luxury-card">
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR8m96kKqNG0hilOCHkaXsjVWz5BfNp-iEfvP9NfYvfe2VPT69sh5LQKaKtJe4GKjOiFpKyjGmj2AZ3C3r9rckaKJDNZG9vVtTMqUeFlrwr_MzKQTiTaIyuWsIKyx92TyFIBBVAzxVJSHeDmz0TxjQ42M_GohSIwnnus99fA0w_ahh6Mf6IFkxafqadBoERa7-xP0qskqshhLWCfjHgiUmqixhVJykAZuZeXND9eMyKr4I4VFGTEF2"
-                alt="Autumn Campaign Editorial"
+                src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=1400&q=80"
+                alt="Autumn Couture Campaign Editorial"
                 className="w-full h-auto object-cover aspect-[4/3] luxury-img-zoom"
               />
               <div className="absolute bottom-6 left-6 z-10">
                 <button
-                  onClick={() => onSelectProduct("smart-casual-blazer")}
+                  onClick={() => onSelectProduct("beige-bomber-jacket")}
                   className="bg-white/90 text-[#191715] backdrop-blur-md px-6 py-3 border border-[#cfc4bd] text-[11px] uppercase tracking-widest font-medium hover:bg-[#191715] hover:text-white transition-colors cursor-pointer rounded-xs shadow-md"
                 >
-                  Shop Campaign Suit →
+                  Shop Campaign Dress →
                 </button>
               </div>
             </div>
@@ -355,13 +368,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="md:col-span-5 space-y-6">
               <div className="p-6 bg-white rounded-xs border border-[#cfc4bd]/40 shadow-xs">
                 <span className="text-[10px] uppercase tracking-widest text-[#69635e] font-semibold block mb-2">
-                  LOOK 01 / AUTUMN OVERCOAT
+                  LOOK 01 / LIQUID SILK SLIP
                 </span>
                 <h4 className="text-xl font-serif text-[#191715] mb-2">
-                  Double-Faced Wool Trench
+                  Silk Bias-Cut Slip Dress
                 </h4>
                 <p className="text-xs text-[#4c4540] leading-relaxed mb-4">
-                  Constructed without internal stiffening for a natural fluid drop over relaxed trousers.
+                  Constructed from 22-momme pure mulberry silk for an effortless, liquid silhouette that drapes gracefully.
                 </p>
                 <button
                   onClick={() => onSelectProduct("beige-bomber-jacket")}
@@ -373,19 +386,19 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
               <div className="p-6 bg-white rounded-xs border border-[#cfc4bd]/40 shadow-xs">
                 <span className="text-[10px] uppercase tracking-widest text-[#69635e] font-semibold block mb-2">
-                  LOOK 02 / URBAN TAILORING
+                  LOOK 02 / SCULPTED TAILORING
                 </span>
                 <h4 className="text-xl font-serif text-[#191715] mb-2">
-                  Fine Gauge Merino Turtleneck
+                  Sculpted Wool Blazer Dress
                 </h4>
                 <p className="text-xs text-[#4c4540] leading-relaxed mb-4">
-                  Spun from 19.5 micron merino wool for thermal elegance without bulk.
+                  Tailored in Italy with structured power shoulders and a contoured nipped waist for timeless authority.
                 </p>
                 <button
-                  onClick={() => onSelectProduct("knitted-polo-shirt")}
+                  onClick={() => onSelectProduct("smart-casual-blazer")}
                   className="text-xs uppercase tracking-wider font-semibold text-[#191715] border-b border-[#191715] pb-0.5 hover:text-[#625d5b]"
                 >
-                  View Knitwear
+                  View Tailored Dress
                 </button>
               </div>
 
@@ -404,17 +417,20 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* 5. FOOTWEAR ATELIER SECTION */}
-      <section id="footwear-section" className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24">
+      <section
+        id="footwear-section"
+        className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24"
+      >
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-4 border-b border-[#cfc4bd]/40">
           <div>
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#69635e] mb-2 font-semibold">
               CHAPTER 03 — FOOTWEAR ATELIER
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-[#191715]">
-              Handcrafted Italian Footwear
+              Handcrafted Italian Stilettos &amp; Footwear
             </h2>
             <p className="text-sm text-[#69635e] mt-1">
-              Goodyear-welted construction, vegetable-tanned leathers, and refined silhouettes.
+              Sculptural pumps, Tuscan leather Chelsea boots, and minimalist luxury sneakers.
             </p>
           </div>
           <button
@@ -459,7 +475,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
               >
                 {product.name}
               </h3>
-              <p className="text-xs text-[#69635e] mb-1.5">{product.subCategory || "Footwear"}</p>
+              <p className="text-xs text-[#69635e] mb-1.5">
+                {product.subCategory || "Footwear"}
+              </p>
               <div className="text-[#191715] font-medium text-[14px]">
                 ${product.price}
               </div>
@@ -469,17 +487,20 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* 6. ACCESSORIES & LEATHER GOODS SECTION */}
-      <section id="accessories-section" className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24">
+      <section
+        id="accessories-section"
+        className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24"
+      >
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-4 border-b border-[#cfc4bd]/40">
           <div>
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#69635e] mb-2 font-semibold">
               CHAPTER 04 — REFINED ACCESSORIES
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-[#191715]">
-              Leather Goods &amp; Accoutrements
+              Haute Handbags &amp; Accoutrements
             </h2>
             <p className="text-sm text-[#69635e] mt-1">
-              Cashmere scarves, full-grain leather bags, timepieces, and opticals.
+              Full-grain leather structured totes, Mongolian cashmere wraps, and sculpted waist belts.
             </p>
           </div>
           <button
@@ -524,7 +545,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
               >
                 {product.name}
               </h3>
-              <p className="text-xs text-[#69635e] mb-1.5">{product.subCategory || "Accessories"}</p>
+              <p className="text-xs text-[#69635e] mb-1.5">
+                {product.subCategory || "Accessories"}
+              </p>
               <div className="text-[#191715] font-medium text-[14px]">
                 ${product.price}
               </div>
@@ -534,7 +557,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* 7. SEASONAL ARCHIVE / SALE SECTION */}
-      <section id="sale-section" className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24">
+      <section
+        id="sale-section"
+        className="w-full max-w-[1440px] mx-auto px-5 md:px-16 py-12 mb-20 scroll-mt-24"
+      >
         <div className="flex flex-col md:flex-row bg-[#eae1da] rounded-xs overflow-hidden border border-[#cfc4bd]/60 mb-12">
           <div className="w-full md:w-1/2 p-10 sm:p-14 md:p-18 flex flex-col justify-center items-start border-b md:border-b-0 md:border-r border-[#cfc4bd]/40">
             <span className="inline-block bg-[#191715] text-white text-[10px] uppercase tracking-[0.2em] px-3 py-1 font-semibold mb-4 rounded-xs">
@@ -544,7 +570,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
               Seasonal Archive — Up to 30% OFF
             </h3>
             <p className="text-[14px] text-[#635d58] mb-6 max-w-md leading-relaxed">
-              Curated tailoring &amp; outerwear pieces from previous editorial drops. Use code <span className="font-semibold text-[#191715]">VOGUE20</span> at checkout for an additional 20% privilege.
+              Curated tailoring &amp; outerwear pieces from previous editorial
+              drops. Use code{" "}
+              <span className="font-semibold text-[#191715]">VOGUE20</span> at
+              checkout for an additional 20% privilege.
             </p>
             <button
               id="autumn-collection-shop-btn"
@@ -561,8 +590,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           <div className="w-full md:w-1/2 relative min-h-[340px] md:min-h-[440px] overflow-hidden">
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrRXMSeMT_Ae5lZOvkQNMabDLAX-v5qFpSuy_vOZiPuItDwfE-kQv9UFOXZMEx0cMvLOa0FZAzKVljS5louJr4GwYqDzqDQNF_qn3QnfBxI3oLr3tEkdyencGMOSzKXRbfI4z09I6C2sZncLfeWkNhYywWoaDe7CjMaWEykhaPSUWJ_IEkmUMX6ZmFKqnOGHRpEdWCrc00OVuoR7eZm1PHnVRYUjWP-mS9a7ZF0N06oZjkL7egUmvO"
-              alt="Archive Sale Outerwear"
+              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80"
+              alt="Archive Sale Dresses & Couture"
               className="w-full h-full object-cover object-center luxury-img-zoom"
             />
             <div className="absolute inset-0 bg-black/15" />
@@ -604,7 +633,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 {product.name}
               </h3>
               <div className="flex items-center gap-2 text-[14px]">
-                <span className="text-[#ba1a1a] font-semibold">${product.price}</span>
+                <span className="text-[#ba1a1a] font-semibold">
+                  ${product.price}
+                </span>
                 {product.originalPrice && (
                   <span className="text-[#7e756f] line-through text-[12px]">
                     ${product.originalPrice}
@@ -628,7 +659,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 Italian &amp; Biella Mills
               </h4>
               <p className="text-xs text-[#69635e] leading-relaxed">
-                Superfine merino, organic linen, and worsted wool sourced directly from centuries-old European mills.
+                Superfine merino, organic linen, and worsted wool sourced
+                directly from centuries-old European mills.
               </p>
             </div>
           </div>
@@ -642,7 +674,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 Carbon-Neutral Express
               </h4>
               <p className="text-xs text-[#69635e] leading-relaxed">
-                Complimentary climate-compensated standard shipping on all orders exceeding $150.
+                Complimentary climate-compensated standard shipping on all
+                orders exceeding $150.
               </p>
             </div>
           </div>
@@ -656,7 +689,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 Atelier Concierge
               </h4>
               <p className="text-xs text-[#69635e] leading-relaxed">
-                Personal styling advice and precision sizing consultations available via our editorial team.
+                Personal styling advice and precision sizing consultations
+                available via our editorial team.
               </p>
             </div>
           </div>
@@ -670,7 +704,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 30-Day Privilege Return
               </h4>
               <p className="text-xs text-[#69635e] leading-relaxed">
-                Hassle-free return policy with pre-paid return labels included in signature box.
+                Hassle-free return policy with pre-paid return labels included
+                in signature box.
               </p>
             </div>
           </div>
@@ -681,16 +716,20 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <section className="w-full max-w-[1440px] mx-auto px-5 md:px-16 mb-24">
         <div className="bg-[#191715] text-white p-8 sm:p-14 rounded-xs text-center border border-[#cfc4bd]/30 shadow-xl">
           <p className="text-[11px] uppercase tracking-[0.25em] text-[#eae1da] mb-3 font-semibold">
-            DANISH VOGUE GAZETTE
+            Urban Vogue GAZETTE
           </p>
           <h3 className="text-2xl sm:text-4xl font-serif mb-4 text-white">
             Receive Private Editorial Invites &amp; Seasonal Previews
           </h3>
           <p className="text-xs sm:text-sm text-white/80 max-w-lg mx-auto mb-8 leading-relaxed font-sans">
-            Subscribe to receive private seasonal invitations, capsule launch alerts, and subscriber-only archive access.
+            Subscribe to receive private seasonal invitations, capsule launch
+            alerts, and subscriber-only archive access.
           </p>
 
-          <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+          <form
+            onSubmit={handleNewsletterSubmit}
+            className="max-w-md mx-auto flex flex-col sm:flex-row gap-3"
+          >
             <input
               type="email"
               required
@@ -709,7 +748,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           {newsletterSubscribed && (
             <p className="mt-4 text-xs text-emerald-400 font-medium animate-fade-in">
-              ✓ Welcome to the Danish Vogue Gazette. Check your inbox shortly.
+              ✓ Welcome to the Urban Vogue Gazette. Check your inbox shortly.
             </p>
           )}
         </div>

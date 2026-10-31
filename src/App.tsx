@@ -46,12 +46,12 @@ export default function App() {
       const saved = localStorage.getItem('urban_vogue_cart');
       return saved ? JSON.parse(saved) : [
         {
-          id: 'beige-bomber-jacket-M-Beige',
+          id: 'beige-bomber-jacket-M-Champagne-Ivory',
           productId: 'beige-bomber-jacket',
-          name: 'Beige Bomber Jacket',
-          price: 149,
+          name: 'Silk Bias-Cut Slip Dress',
+          price: 245,
           size: 'M',
-          color: 'Beige',
+          color: 'Champagne Ivory',
           image: PRODUCTS[0].mainImage,
           quantity: 1,
         }

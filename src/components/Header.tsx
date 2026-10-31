@@ -78,7 +78,11 @@ export const Header: React.FC<HeaderProps> = ({
               height="1"
               result="map"
             />
-            <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" result="blur" />
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation="0.02"
+              result="blur"
+            />
             <feDisplacementMap
               id="disp"
               in="blur"
@@ -133,7 +137,7 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className="text-2xl md:text-3xl font-serif font-bold tracking-tighter text-white hover:opacity-90 transition-opacity text-left cursor-pointer"
             >
-              Danish Vogue
+              Urban Vogue
             </button>
 
             {/* Desktop Navigation - All white minimalist design */}
@@ -275,7 +279,7 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <div className="p-6 border-b border-[#cfc4bd]/40 flex justify-between items-center bg-[#f7f3f2]">
             <span className="text-xl font-serif font-bold tracking-tight text-[#191715]">
-              Danish Vogue
+              Urban Vogue
             </span>
             <button
               type="button"
@@ -333,7 +337,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="mt-auto p-6 border-t border-[#cfc4bd]/40 text-xs text-[#69635e]">
             <p className="font-serif italic mb-1">AUTUMN / WINTER 2026</p>
-            <p>© 2026 Danish Vogue Editorial</p>
+            <p>© 2026 Urban Vogue Editorial</p>
           </div>
         </div>
       </div>
