@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CartItem } from '../types';
+import { createOrder } from '../services/orderService';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -15,6 +16,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   onCompleteOrder,
 }) => {
   const [stage, setStage] = useState<'shipping' | 'payment' | 'confirmed'>('shipping');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [orderError, setOrderError] = useState<string | null>(null);
+  const [orderNumber, setOrderNumber] = useState<string>('');
+
   const [formData, setFormData] = useState({
     firstName: 'Marcus',
     lastName: 'Vance',
@@ -22,22 +27,47 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     address: '450 Mayfair Boulevard',
     city: 'London',
     postalCode: 'W1J 8AJ',
-    cardNumber: '•••• •••• •••• 4242',
+    cardNumber: '4242 4242 4242 4242',
     expDate: '11/28',
-    cvv: '•••',
+    cvv: '123',
   });
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = subtotal;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setOrderError(null);
+
     if (stage === 'shipping') {
       setStage('payment');
-    } else if (stage === 'payment') {
-      setStage('confirmed');
-      setTimeout(() => {
-        onCompleteOrder();
-      }, 3000);
+      return;
+    }
+
+    if (stage === 'payment') {
+      setIsSubmitting(true);
+      try {
+        const created = await createOrder({
+          items: cart,
+          subtotal,
+          total,
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          address: formData.address,
+          city: formData.city,
+          postalCode: formData.postalCode,
+        });
+
+        setOrderNumber(created.id);
+        setStage('confirmed');
+        setTimeout(() => onCompleteOrder(), 3500);
+      } catch (err: any) {
+        console.error('Order failed:', err);
+        setOrderError(err?.message ?? 'Order failed. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -50,9 +80,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       }`}
       aria-hidden={!isOpen}
     >
-      {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-350 ${
           isOpen ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={stage !== 'confirmed' ? onClose : undefined}
@@ -70,7 +99,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           {stage !== 'confirmed' && (
             <button
               onClick={onClose}
-              className="p-1 text-[#4c4540] hover:text-[#191715]"
+              className="p-1 text-[#4c4540] hover:text-[#191715] cursor-pointer"
             >
               <span className="material-symbols-outlined">close</span>
             </button>
@@ -84,14 +113,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             </div>
             <h4 className="text-xl font-serif text-[#191715] mb-2">Thank you for your order</h4>
             <p className="text-xs text-[#69635e] mb-6">
-              Confirmation #UV-2026-8942 has been dispatched to {formData.email}.
+              Confirmation #{orderNumber.slice(0, 8).toUpperCase()} has been dispatched to{' '}
+              {formData.email}.
             </p>
             <div className="p-4 bg-[#f7f3f2] rounded-xs border border-[#cfc4bd]/40 text-left text-xs space-y-2 mb-6">
               <div className="flex justify-between text-[#191715] font-medium">
                 <span>Total Paid</span>
-                <span>${total}.00</span>
+                <span>${total.toFixed(2)}</span>
               </div>
-              <p className="text-[#69635e]">Estimated delivery: 2-3 Business Days via Priority Courier.</p>
+              <p className="text-[#69635e]">
+                Estimated delivery: 2-3 Business Days via Priority Courier.
+              </p>
             </div>
             <button
               onClick={onClose}
@@ -102,6 +134,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+            {orderError && (
+              <div className="p-3 bg-[#fbe9e9] border border-[#ba1a1a]/40 text-[#ba1a1a] text-xs rounded-xs">
+                {orderError}
+              </div>
+            )}
+
             {stage === 'shipping' ? (
               <>
                 <div className="grid grid-cols-2 gap-3">
@@ -128,7 +166,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-[#4c4540] mb-1 font-medium">Email for Order Tracking</label>
+                  <label className="block text-[#4c4540] mb-1 font-medium">
+                    Email for Order Tracking
+                  </label>
                   <input
                     type="email"
                     required
@@ -175,7 +215,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <div className="pt-4 border-t border-[#cfc4bd]/40 flex justify-between items-center">
                   <div>
                     <p className="text-[11px] text-[#69635e]">Order Summary</p>
-                    <p className="text-base font-serif font-bold text-[#191715]">${total}.00</p>
+                    <p className="text-base font-serif font-bold text-[#191715]">
+                      ${total.toFixed(2)}
+                    </p>
                   </div>
                   <button
                     type="submit"
@@ -189,7 +231,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <>
                 <div className="p-3 bg-[#eae1da] rounded-xs border border-[#cfc4bd]/60 mb-2">
                   <p className="text-[11px] font-semibold text-[#191715]">Delivering to:</p>
-                  <p className="text-xs text-[#4c4540]">{formData.firstName} {formData.lastName}, {formData.address}, {formData.city}</p>
+                  <p className="text-xs text-[#4c4540]">
+                    {formData.firstName} {formData.lastName}, {formData.address}, {formData.city}
+                  </p>
                 </div>
 
                 <div>
@@ -215,7 +259,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     />
                   </div>
                   <div>
-                    <label className="block text-[#4c4540] mb-1 font-medium">Security Code (CVV)</label>
+                    <label className="block text-[#4c4540] mb-1 font-medium">
+                      Security Code (CVV)
+                    </label>
                     <input
                       type="text"
                       required
@@ -230,15 +276,24 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setStage('shipping')}
-                    className="text-xs text-[#69635e] hover:text-[#191715] underline cursor-pointer"
+                    disabled={isSubmitting}
+                    className="text-xs text-[#69635e] hover:text-[#191715] underline cursor-pointer disabled:opacity-50"
                   >
                     ← Edit Address
                   </button>
                   <button
                     type="submit"
-                    className="py-3 px-6 bg-[#191715] text-white text-xs uppercase tracking-widest font-medium rounded-xs hover:bg-[#313030] cursor-pointer"
+                    disabled={isSubmitting}
+                    className="py-3 px-6 bg-[#191715] text-white text-xs uppercase tracking-widest font-medium rounded-xs hover:bg-[#313030] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
                   >
-                    Authorize Payment (${total}.00)
+                    {isSubmitting ? (
+                      <>
+                        <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Processing…
+                      </>
+                    ) : (
+                      <>Authorize Payment (${total.toFixed(2)})</>
+                    )}
                   </button>
                 </div>
               </>

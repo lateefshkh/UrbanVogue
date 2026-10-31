@@ -1,3 +1,9 @@
+export interface ColorOption {
+  name: string;
+  hex: string;
+  bgClass?: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -10,11 +16,7 @@ export interface Product {
   subCategory?: string;
   rating: number;
   reviewCount: number;
-  colors: {
-    name: string;
-    hex: string;
-    bgClass?: string;
-  }[];
+  colors: ColorOption[];
   sizes: string[];
   mainImage: string;
   gallery: string[];
@@ -37,7 +39,7 @@ export interface CartItem {
 
 export interface WishlistItem {
   productId: string;
-  addedAt: number;
+  addedAt: string;
 }
 
 export type ActiveTab = 'home' | 'shop' | 'clothing' | 'footwear' | 'accessories' | 'lookbook' | 'sale';

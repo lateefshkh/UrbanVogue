@@ -1,6 +1,17 @@
-import { useState, useEffect } from 'react';
-import { ActiveTab, CartItem, WishlistItem, Product } from './types';
-import { PRODUCTS } from './data/products';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { ActiveTab, Product, CartItem, WishlistItem } from './types';
+import { useProducts } from './hooks/useProducts';
+import { addToWishlist as saveWishlistToCloud, removeFromWishlist as removeWishlistFromCloud } from './services/wishlistService';
+
+const getGuestUserId = (): string => {
+  let uid = localStorage.getItem('uv_user_id');
+  if (!uid) {
+    uid = 'guest_' + Math.random().toString(36).substring(2, 10);
+    localStorage.setItem('uv_user_id', uid);
+  }
+  return uid;
+};
+
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomeView } from './components/HomeView';
@@ -15,227 +26,223 @@ import { CartDrawer } from './components/CartDrawer';
 import { WishlistDrawer } from './components/WishlistDrawer';
 import { SearchModal } from './components/SearchModal';
 import { SizeGuideModal } from './components/SizeGuideModal';
-import { CheckoutModal } from './components/CheckoutModal';
 import { PolicyModal } from './components/PolicyModal';
 import { NotificationToast } from './components/NotificationToast';
+import { CheckoutModal } from './components/CheckoutModal';
 
 export default function App() {
+  const { products, isLoading, error } = useProducts();
+
+  // ---- Navigation ----
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
-  const [shopCategoryFilter, setShopCategoryFilter] = useState<string>('all');
 
-  // Modals & Drawers state
+  // ---- Cart & Wishlist ----
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
+
+  // ---- Drawers / Modals ----
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  const [activePolicyModal, setActivePolicyModal] = useState<string | null>(null);
+  const [policyTitle, setPolicyTitle] = useState<string | null>(null);
 
-  // Toast feedback state
+  // ---- Toast ----
   const [toast, setToast] = useState<{
-    message: string;
+    message: string | null;
     type: 'bag' | 'wishlist' | 'info';
-    actionText?: string;
     onAction?: () => void;
-  } | null>(null);
+    actionText?: string;
+  }>({ message: null, type: 'bag' });
 
-  // Cart state with local storage
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    try {
-      const saved = localStorage.getItem('urban_vogue_cart');
-      return saved ? JSON.parse(saved) : [
-        {
-          id: 'beige-bomber-jacket-M-Champagne-Ivory',
-          productId: 'beige-bomber-jacket',
-          name: 'Silk Bias-Cut Slip Dress',
-          price: 245,
-          size: 'M',
-          color: 'Champagne Ivory',
-          image: PRODUCTS[0].mainImage,
-          quantity: 1,
-        }
-      ];
-    } catch {
-      return [];
-    }
-  });
-
-  // Wishlist state with local storage
-  const [wishlist, setWishlist] = useState<WishlistItem[]>(() => {
-    try {
-      const saved = localStorage.getItem('urban_vogue_wishlist');
-      return saved ? JSON.parse(saved) : [
-        { productId: 'knitted-polo-shirt', addedAt: Date.now() },
-        { productId: 'leather-chelsea-boots', addedAt: Date.now() }
-      ];
-    } catch {
-      return [];
-    }
-  });
-
+  // ---- Persistence: Cart & Wishlist in localStorage ----
   useEffect(() => {
     try {
-      localStorage.setItem('urban_vogue_cart', JSON.stringify(cart));
+      const savedCart = localStorage.getItem('uv_cart');
+      const savedWish = localStorage.getItem('uv_wishlist');
+      if (savedCart) setCart(JSON.parse(savedCart));
+      if (savedWish) setWishlist(JSON.parse(savedWish));
     } catch {
-      // ignore
+      /* ignore */
     }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('uv_cart', JSON.stringify(cart));
   }, [cart]);
 
   useEffect(() => {
-    try {
-      localStorage.setItem('urban_vogue_wishlist', JSON.stringify(wishlist));
-    } catch {
-      // ignore
-    }
+    localStorage.setItem('uv_wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
-  // Handler for opening a specific product
-  const handleSelectProduct = (productId: string) => {
-    setSelectedProductId(productId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // ---- Toast helper ----
+  const showToast = useCallback(
+    (
+      message: string,
+      type: 'bag' | 'wishlist' | 'info' = 'bag',
+      onAction?: () => void,
+      actionText?: string
+    ) => {
+      setToast({ message, type, onAction, actionText });
+      window.setTimeout(() => {
+        setToast((t) => (t.message === message ? { ...t, message: null } : t));
+      }, 4500);
+    },
+    []
+  );
 
-  // Direct category navigation handler
-  const handleTabChange = (tab: ActiveTab) => {
-    setSelectedProductId(null);
-    if (activeTab === 'home' && (tab === 'clothing' || tab === 'footwear' || tab === 'accessories' || tab === 'lookbook' || tab === 'sale')) {
-      const sectionId = `${tab}-section`;
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-    }
+  // ---- Wishlist helpers ----
+  const isWishlisted = useCallback(
+    (productId: string) => wishlist.some((w) => w.productId === productId),
+    [wishlist]
+  );
 
-    setActiveTab(tab);
-    if (tab === 'clothing' || tab === 'footwear' || tab === 'accessories' || tab === 'sale') {
-      setShopCategoryFilter(tab);
-    } else if (tab === 'shop') {
-      setShopCategoryFilter('all');
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleFilterByCategory = (category: string) => {
-    setShopCategoryFilter(category);
-    setActiveTab('shop');
-    setSelectedProductId(null);
-  };
-
-  // Add to cart handler
-  const handleAddToCart = (product: Product, size: string, color: string) => {
-    const itemId = `${product.id}-${size}-${color}`;
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === itemId);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      return [
-        ...prev,
-        {
-          id: itemId,
-          productId: product.id,
-          name: product.name,
-          price: product.price,
-          size,
-          color,
-          image: product.mainImage,
-          quantity: 1,
-        },
-      ];
-    });
-
-    setToast({
-      message: `Added "${product.name}" (${size}, ${color}) to bag`,
-      type: 'bag',
-      actionText: 'View Bag',
-      onAction: () => {
-        setIsCartOpen(true);
-        setToast(null);
-      },
-    });
-
-    setTimeout(() => setToast(null), 4000);
-  };
-
-  // Quick add from card (defaults to Medium and first color)
-  const handleQuickAdd = (product: Product) => {
-    const size = product.sizes[1] || product.sizes[0] || 'M';
-    const color = product.colors[0]?.name || 'Standard';
-    handleAddToCart(product, size, color);
-  };
-
-  // Wishlist toggle
-  const handleToggleWishlist = (product: Product) => {
-    const exists = wishlist.some((item) => item.productId === product.id);
-    if (exists) {
-      setWishlist((prev) => prev.filter((item) => item.productId !== product.id));
-      setToast({
-        message: `Removed "${product.name}" from wishlist`,
-        type: 'wishlist',
+  const toggleWishlist = useCallback(
+    (product: Product) => {
+      const userId = getGuestUserId();
+      setWishlist((prev) => {
+        const exists = prev.some((w) => w.productId === product.id);
+        if (exists) {
+          showToast(`Removed ${product.name} from wishlist`, 'wishlist');
+          removeWishlistFromCloud(product.id, userId);
+          return prev.filter((w) => w.productId !== product.id);
+        }
+        showToast(`Saved ${product.name} to wishlist`, 'wishlist');
+        saveWishlistToCloud(product.id, userId);
+        return [...prev, { productId: product.id, addedAt: new Date().toISOString() }];
       });
-    } else {
-      setWishlist((prev) => [...prev, { productId: product.id, addedAt: Date.now() }]);
-      setToast({
-        message: `Saved "${product.name}" to wishlist`,
-        type: 'wishlist',
-        actionText: 'View Saved',
-        onAction: () => {
-          setIsWishlistOpen(true);
-          setToast(null);
-        },
+    },
+    [showToast]
+  );
+
+  const removeFromWishlist = useCallback((productId: string) => {
+    const userId = getGuestUserId();
+    removeWishlistFromCloud(productId, userId);
+    setWishlist((prev) => prev.filter((w) => w.productId !== productId));
+  }, []);
+
+  // ---- Cart helpers ----
+  const addToCart = useCallback(
+    (product: Product, size?: string, color?: string) => {
+      const chosenSize = size ?? product.sizes[0] ?? 'One Size';
+      const chosenColor = color ?? product.colors[0]?.name ?? 'Default';
+      const lineId = `${product.id}-${chosenSize}-${chosenColor}`;
+
+      setCart((prev) => {
+        const existing = prev.find((item) => item.id === lineId);
+        if (existing) {
+          return prev.map((item) =>
+            item.id === lineId ? { ...item, quantity: item.quantity + 1 } : item
+          );
+        }
+        return [
+          ...prev,
+          {
+            id: lineId,
+            productId: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.mainImage,
+            size: chosenSize,
+            color: chosenColor,
+            quantity: 1,
+          },
+        ];
       });
-    }
-    setTimeout(() => setToast(null), 3500);
-  };
 
-  const isProductWishlisted = (productId: string) => {
-    return wishlist.some((item) => item.productId === productId);
-  };
+      showToast(`${product.name} added to bag`, 'bag', () => setIsCartOpen(true), 'View Bag');
+    },
+    [showToast]
+  );
 
-  const handleUpdateCartQuantity = (id: string, delta: number) => {
+  const quickAdd = useCallback((product: Product) => addToCart(product), [addToCart]);
+
+  const updateCartQuantity = useCallback((id: string, delta: number) => {
     setCart((prev) =>
       prev
-        .map((item) => {
-          if (item.id === id) {
-            const newQty = item.quantity + delta;
-            return newQty > 0 ? { ...item, quantity: newQty } : null;
-          }
-          return item;
-        })
-        .filter(Boolean) as CartItem[]
+        .map((item) =>
+          item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
+        )
+        .filter((item) => item.quantity > 0)
     );
-  };
+  }, []);
 
-  const handleRemoveCartItem = (id: string) => {
+  const removeFromCart = useCallback((id: string) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
-  };
+  }, []);
 
-  const handleRemoveWishlist = (productId: string) => {
-    setWishlist((prev) => prev.filter((item) => item.productId !== productId));
-  };
+  // ---- Product navigation ----
+  const openProduct = useCallback((productId: string) => {
+    setSelectedProductId(productId);
+    setActiveTab('product');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
-  const handleCompleteOrder = () => {
+  const goToTab = useCallback((tab: ActiveTab) => {
+    setActiveTab(tab);
+    setSelectedProductId(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // ---- Derived product lists ----
+  const featuredProducts = useMemo(() => products.slice(0, 16), [products]);
+  const selectedProduct = useMemo(
+    () => products.find((p) => p.id === selectedProductId) ?? null,
+    [products, selectedProductId]
+  );
+
+  const handleCheckoutComplete = useCallback(() => {
     setCart([]);
     setIsCheckoutOpen(false);
-    setIsCartOpen(false);
-    setActiveTab('home');
-    setSelectedProductId(null);
-  };
+    showToast('Order placed successfully. Thank you!', 'info');
+  }, [showToast]);
 
-  const currentProduct = selectedProductId
-    ? PRODUCTS.find((p) => p.id === selectedProductId) || PRODUCTS[0]
-    : null;
+  // ---- Loading / error gate ----
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#fdf8f7]">
+        <div className="text-center">
+          <div className="w-12 h-12 border-2 border-[#191715] border-t-transparent rounded-full animate-spin mx-auto mb-5" />
+          <p className="text-sm uppercase tracking-[0.2em] text-[#69635e]">
+            Loading Collection
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#fdf8f7] p-6">
+        <div className="text-center max-w-md">
+          <span className="material-symbols-outlined text-5xl text-[#ba1a1a] mb-4">
+            error
+          </span>
+          <h2 className="text-2xl font-serif text-[#191715] mb-2">
+            Unable to load collection
+          </h2>
+          <p className="text-sm text-[#69635e] mb-6">{error}</p>
+          <p className="text-xs text-[#69635e] mb-6">
+            Check your Appwrite environment variables and collection permissions.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-6 py-3 bg-[#191715] text-white text-xs uppercase tracking-widest font-medium rounded-xs"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7] text-[#1c1b1b] flex flex-col font-sans selection:bg-[#eae1da] selection:text-[#69635e]">
-      {/* Universal Sticky / Adaptive Header */}
+    <div className="min-h-screen bg-[#fdf8f7] text-[#1c1b1b] flex flex-col">
       <Header
         activeTab={activeTab}
-        setActiveTab={handleTabChange}
+        setActiveTab={goToTab}
         cart={cart}
         wishlist={wishlist}
         setIsCartOpen={setIsCartOpen}
@@ -243,144 +250,149 @@ export default function App() {
         setIsSearchOpen={setIsSearchOpen}
       />
 
-      {/* Main View Router */}
-      <div className={`flex-1 w-full ${activeTab === 'home' && !selectedProductId ? '' : 'pt-24 md:pt-28'}`}>
-        {selectedProductId && currentProduct ? (
-          <ProductDetailView
-            product={currentProduct}
-            allProducts={PRODUCTS}
-            onSelectProduct={handleSelectProduct}
-            setActiveTab={handleTabChange}
-            onAddToCart={handleAddToCart}
-            onToggleWishlist={handleToggleWishlist}
-            isWishlisted={isProductWishlisted}
-            onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
-          />
-        ) : activeTab === 'home' ? (
+      <main className="flex-1 pt-16 md:pt-20">
+        {activeTab === 'home' && (
           <HomeView
-            onSelectProduct={handleSelectProduct}
-            setActiveTab={handleTabChange}
-            onFilterByCategory={handleFilterByCategory}
-            featuredProducts={PRODUCTS}
-            onQuickAdd={handleQuickAdd}
-          />
-        ) : activeTab === 'lookbook' ? (
-          <LookbookView
-            setActiveTab={handleTabChange}
-            onSelectProduct={handleSelectProduct}
-            onFilterByCategory={handleFilterByCategory}
-          />
-        ) : activeTab === 'clothing' ? (
-          <ClothingView
-            products={PRODUCTS}
-            onSelectProduct={handleSelectProduct}
-            onQuickAdd={handleQuickAdd}
-            onToggleWishlist={handleToggleWishlist}
-            isWishlisted={isProductWishlisted}
-          />
-        ) : activeTab === 'footwear' ? (
-          <FootwearView
-            products={PRODUCTS}
-            onSelectProduct={handleSelectProduct}
-            onQuickAdd={handleQuickAdd}
-            onToggleWishlist={handleToggleWishlist}
-            isWishlisted={isProductWishlisted}
-          />
-        ) : activeTab === 'accessories' ? (
-          <AccessoriesView
-            products={PRODUCTS}
-            onSelectProduct={handleSelectProduct}
-            onQuickAdd={handleQuickAdd}
-            onToggleWishlist={handleToggleWishlist}
-            isWishlisted={isProductWishlisted}
-          />
-        ) : activeTab === 'sale' ? (
-          <SaleView
-            products={PRODUCTS}
-            onSelectProduct={handleSelectProduct}
-            onQuickAdd={handleQuickAdd}
-            onToggleWishlist={handleToggleWishlist}
-            isWishlisted={isProductWishlisted}
-          />
-        ) : (
-          <ShopView
-            products={PRODUCTS}
-            onSelectProduct={handleSelectProduct}
-            onQuickAdd={handleQuickAdd}
-            onToggleWishlist={handleToggleWishlist}
-            isWishlisted={isProductWishlisted}
-            initialCategory={shopCategoryFilter}
+            featuredProducts={featuredProducts}
+            onSelectProduct={openProduct}
+            setActiveTab={goToTab}
+            onFilterByCategory={() => goToTab('shop')}
+            onQuickAdd={quickAdd}
           />
         )}
-      </div>
 
-      {/* Editorial Footer */}
+        {activeTab === 'shop' && (
+          <ShopView
+            products={products}
+            onSelectProduct={openProduct}
+            onQuickAdd={quickAdd}
+            onToggleWishlist={toggleWishlist}
+            isWishlisted={isWishlisted}
+          />
+        )}
+
+        {activeTab === 'clothing' && (
+          <ClothingView
+            products={products}
+            onSelectProduct={openProduct}
+            onQuickAdd={quickAdd}
+            onToggleWishlist={toggleWishlist}
+            isWishlisted={isWishlisted}
+          />
+        )}
+
+        {activeTab === 'footwear' && (
+          <FootwearView
+            products={products}
+            onSelectProduct={openProduct}
+            onQuickAdd={quickAdd}
+            onToggleWishlist={toggleWishlist}
+            isWishlisted={isWishlisted}
+          />
+        )}
+
+        {activeTab === 'accessories' && (
+          <AccessoriesView
+            products={products}
+            onSelectProduct={openProduct}
+            onQuickAdd={quickAdd}
+            onToggleWishlist={toggleWishlist}
+            isWishlisted={isWishlisted}
+          />
+        )}
+
+        {activeTab === 'sale' && (
+          <SaleView
+            products={products}
+            onSelectProduct={openProduct}
+            onQuickAdd={quickAdd}
+            onToggleWishlist={toggleWishlist}
+            isWishlisted={isWishlisted}
+          />
+        )}
+
+        {activeTab === 'lookbook' && (
+          <LookbookView
+            setActiveTab={goToTab}
+            onSelectProduct={openProduct}
+            onFilterByCategory={() => goToTab('shop')}
+          />
+        )}
+
+        {activeTab === 'product' && selectedProduct && (
+          <ProductDetailView
+            product={selectedProduct}
+            allProducts={products}
+            onSelectProduct={openProduct}
+            setActiveTab={goToTab}
+            onAddToCart={addToCart}
+            onToggleWishlist={toggleWishlist}
+            isWishlisted={isWishlisted}
+            onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
+          />
+        )}
+      </main>
+
       <Footer
-        setActiveTab={handleTabChange}
-        onOpenPolicyModal={(title) => setActivePolicyModal(title)}
+        setActiveTab={goToTab}
+        onOpenPolicyModal={(title) => setPolicyTitle(title)}
       />
 
-      {/* Shopping Bag Drawer */}
+      {/* Drawers & Modals */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
         cart={cart}
-        onUpdateQuantity={handleUpdateCartQuantity}
-        onRemoveItem={handleRemoveCartItem}
+        onUpdateQuantity={updateCartQuantity}
+        onRemoveItem={removeFromCart}
         onCheckout={() => {
           setIsCartOpen(false);
           setIsCheckoutOpen(true);
         }}
-        onSelectProduct={handleSelectProduct}
+        onSelectProduct={openProduct}
       />
 
-      {/* Wishlist Drawer */}
       <WishlistDrawer
         isOpen={isWishlistOpen}
         onClose={() => setIsWishlistOpen(false)}
         wishlist={wishlist}
-        products={PRODUCTS}
-        onRemoveWishlist={handleRemoveWishlist}
-        onMoveToCart={handleQuickAdd}
-        onSelectProduct={handleSelectProduct}
+        products={products}
+        onRemoveWishlist={removeFromWishlist}
+        onMoveToCart={(product) => addToCart(product)}
+        onSelectProduct={openProduct}
       />
 
-      {/* Search Modal */}
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
-        products={PRODUCTS}
-        onSelectProduct={handleSelectProduct}
+        products={products}
+        onSelectProduct={openProduct}
       />
 
-      {/* Size Guide Modal */}
       <SizeGuideModal
         isOpen={isSizeGuideOpen}
         onClose={() => setIsSizeGuideOpen(false)}
       />
 
-      {/* Checkout Flow Modal */}
+      <PolicyModal
+        title={policyTitle}
+        onClose={() => setPolicyTitle(null)}
+      />
+
       <CheckoutModal
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         cart={cart}
-        onCompleteOrder={handleCompleteOrder}
+        onCompleteOrder={handleCheckoutComplete}
       />
 
-      {/* Policy & Concierge Information Modal */}
-      <PolicyModal
-        title={activePolicyModal}
-        onClose={() => setActivePolicyModal(null)}
-      />
-
-      {/* Notification Toast Feedback */}
       <NotificationToast
-        message={toast?.message || null}
-        type={toast?.type}
-        actionText={toast?.actionText}
-        onAction={toast?.onAction}
-        onClose={() => setToast(null)}
+        message={toast.message}
+        type={toast.type}
+        onAction={toast.onAction}
+        actionText={toast.actionText}
+        onClose={() => setToast({ ...toast, message: null })}
       />
     </div>
   );
-};
+}
