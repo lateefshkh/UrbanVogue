@@ -7,6 +7,8 @@ interface HomeViewProps {
   onFilterByCategory: (category: string) => void;
   featuredProducts: Product[];
   onQuickAdd: (product: Product) => void;
+  onToggleWishlist?: (product: Product) => void;
+  isWishlisted?: (productId: string) => boolean;
 }
 
 export const HomeView: React.FC<HomeViewProps> = ({
@@ -15,6 +17,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onFilterByCategory,
   featuredProducts,
   onQuickAdd,
+  onToggleWishlist,
+  isWishlisted,
 }) => {
   const [clothingCategory, setClothingCategory] = useState<string>("all");
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -274,11 +278,55 @@ export const HomeView: React.FC<HomeViewProps> = ({
                     New Arrival
                   </span>
                 )}
+                {onToggleWishlist && isWishlisted && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleWishlist(product);
+                    }}
+                    className={`absolute top-2.5 right-2.5 z-10 p-2 rounded-full backdrop-blur-xs transition-all duration-300 ${
+                      isWishlisted(product.id)
+                        ? 'bg-white text-[#ba1a1a] opacity-100 shadow-sm'
+                        : 'bg-white/70 text-[#191715] opacity-0 group-hover:opacity-100 hover:bg-white'
+                    }`}
+                    aria-label="Add to wishlist"
+                  >
+                    <span
+                      className={`material-symbols-outlined text-[17px] block ${
+                        isWishlisted(product.id) ? 'font-variation-fill' : ''
+                      }`}
+                    >
+                      favorite
+                    </span>
+                  </button>
+                )}
                 <img
                   src={product.mainImage}
                   alt={product.name}
                   className="w-full h-full object-cover luxury-img-zoom"
                 />
+                {onToggleWishlist && isWishlisted && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleWishlist(product);
+                    }}
+                    className={`absolute top-2.5 right-2.5 z-10 p-2 rounded-full backdrop-blur-xs transition-all duration-300 ${
+                      isWishlisted(product.id)
+                        ? 'bg-white text-[#ba1a1a] opacity-100 shadow-sm'
+                        : 'bg-white/70 text-[#191715] opacity-0 group-hover:opacity-100 hover:bg-white'
+                    }`}
+                    aria-label="Add to wishlist"
+                  >
+                    <span
+                      className={`material-symbols-outlined text-[17px] block ${
+                        isWishlisted(product.id) ? 'font-variation-fill' : ''
+                      }`}
+                    >
+                      favorite
+                    </span>
+                  </button>
+                )}
                 <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 bg-gradient-to-t from-black/40 via-black/20 to-transparent">
                   <button
                     onClick={(e) => {
@@ -457,6 +505,28 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   alt={product.name}
                   className="w-full h-full object-cover luxury-img-zoom"
                 />
+                {onToggleWishlist && isWishlisted && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleWishlist(product);
+                    }}
+                    className={`absolute top-2.5 right-2.5 z-10 p-2 rounded-full backdrop-blur-xs transition-all duration-300 ${
+                      isWishlisted(product.id)
+                        ? 'bg-white text-[#ba1a1a] opacity-100 shadow-sm'
+                        : 'bg-white/70 text-[#191715] opacity-0 group-hover:opacity-100 hover:bg-white'
+                    }`}
+                    aria-label="Add to wishlist"
+                  >
+                    <span
+                      className={`material-symbols-outlined text-[17px] block ${
+                        isWishlisted(product.id) ? 'font-variation-fill' : ''
+                      }`}
+                    >
+                      favorite
+                    </span>
+                  </button>
+                )}
                 <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 bg-gradient-to-t from-black/40 via-black/20 to-transparent">
                   <button
                     onClick={(e) => {
@@ -527,6 +597,28 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   alt={product.name}
                   className="w-full h-full object-cover luxury-img-zoom"
                 />
+                {onToggleWishlist && isWishlisted && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleWishlist(product);
+                    }}
+                    className={`absolute top-2.5 right-2.5 z-10 p-2 rounded-full backdrop-blur-xs transition-all duration-300 ${
+                      isWishlisted(product.id)
+                        ? 'bg-white text-[#ba1a1a] opacity-100 shadow-sm'
+                        : 'bg-white/70 text-[#191715] opacity-0 group-hover:opacity-100 hover:bg-white'
+                    }`}
+                    aria-label="Add to wishlist"
+                  >
+                    <span
+                      className={`material-symbols-outlined text-[17px] block ${
+                        isWishlisted(product.id) ? 'font-variation-fill' : ''
+                      }`}
+                    >
+                      favorite
+                    </span>
+                  </button>
+                )}
                 <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 bg-gradient-to-t from-black/40 via-black/20 to-transparent">
                   <button
                     onClick={(e) => {
@@ -614,6 +706,28 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   alt={product.name}
                   className="w-full h-full object-cover luxury-img-zoom"
                 />
+                {onToggleWishlist && isWishlisted && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleWishlist(product);
+                    }}
+                    className={`absolute top-2.5 right-2.5 z-10 p-2 rounded-full backdrop-blur-xs transition-all duration-300 ${
+                      isWishlisted(product.id)
+                        ? 'bg-white text-[#ba1a1a] opacity-100 shadow-sm'
+                        : 'bg-white/70 text-[#191715] opacity-0 group-hover:opacity-100 hover:bg-white'
+                    }`}
+                    aria-label="Add to wishlist"
+                  >
+                    <span
+                      className={`material-symbols-outlined text-[17px] block ${
+                        isWishlisted(product.id) ? 'font-variation-fill' : ''
+                      }`}
+                    >
+                      favorite
+                    </span>
+                  </button>
+                )}
                 <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 bg-gradient-to-t from-black/40 via-black/20 to-transparent">
                   <button
                     onClick={(e) => {

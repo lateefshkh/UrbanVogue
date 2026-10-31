@@ -26,11 +26,12 @@ export async function addToWishlist(productId: string, userId: string): Promise<
 export async function removeFromWishlist(productId: string, userId: string): Promise<void> {
   try {
     const res = await databases.listDocuments(DB_ID, WISHLIST_COLLECTION, [
-      Query.equal('userId', userId),
-      Query.equal('productId', productId),
-      Query.limit(10),
+      Query.limit(100),
     ]);
-    for (const doc of res.documents) {
+    const matches = res.documents.filter(
+      (doc: any) => doc.userId === userId && doc.productId === productId
+    );
+    for (const doc of matches) {
       await databases.deleteDocument(DB_ID, WISHLIST_COLLECTION, doc.$id);
     }
   } catch (err: any) {
@@ -42,10 +43,11 @@ export async function removeFromWishlist(productId: string, userId: string): Pro
 export async function fetchWishlist(userId: string): Promise<string[]> {
   try {
     const res = await databases.listDocuments(DB_ID, WISHLIST_COLLECTION, [
-      Query.equal('userId', userId),
-      Query.limit(200),
+      Query.limit(100),
     ]);
-    return res.documents.map((d) => (d as any).productId);
+    return res.documents
+      .filter((doc: any) => doc.userId === userId)
+      .map((d: any) => d.productId);
   } catch (err: any) {
     console.warn('[Appwrite] fetchWishlist cloud fetch skipped (using local):', err?.message || err);
     return [];

@@ -258,6 +258,8 @@ export default function App() {
             setActiveTab={goToTab}
             onFilterByCategory={() => goToTab('shop')}
             onQuickAdd={quickAdd}
+            onToggleWishlist={toggleWishlist}
+            isWishlisted={isWishlisted}
           />
         )}
 

@@ -21,7 +21,7 @@ const client    = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
 const databases = new Databases(client);
 
 // Use the actual Appwrite collection $id (not the display name)
-const PRODUCTS_COLLECTION = '6ae59ee800189530bea4';
+const PRODUCTS_COLLECTION = process.env.VITE_APPWRITE_PRODUCTS_COLLECTION_ID || '6ae59ee800189530bea4';
 
 function sleep(ms: number) { return new Promise((r) => setTimeout(r, ms)); }
 
